@@ -8,7 +8,7 @@ export default async function handler(req: NextRequest) {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer YOUR_API_KEY_HERE`, // Replace with env var in Vercel
+      'Authorization': `Bearer YOUR_API_KEY_HERE`, // Replace with your OpenAI key via Vercel env
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
