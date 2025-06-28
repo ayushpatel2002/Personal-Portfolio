@@ -19,6 +19,15 @@ export default async function handler(request: Request): Promise<Response> {
   });
 
   const data = await response.json();
+
+  if (!data.choices || !data.choices[0]) {
+    console.error('OpenAI API error:', data);
+    return new Response(JSON.stringify({ error: 'OpenAI API failed. Check logs.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const reply = data.choices[0].message;
 
   return new Response(JSON.stringify({ reply }), {
