@@ -4,20 +4,33 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([{ role: 'system', content: 'You are a helpful assistant that only answers based on Ayush Patel’s portfolio. Respond with relevant information only.' }]);
   const [input, setInput] = useState('');
 
-  const sendMessage = async () => {
-    const userMessage = { role: 'user', content: input };
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
-    setInput('');
+const sendMessage = async () => {
+  if (!input.trim()) return;
 
+  const userMessage = { role: 'user', content: input };
+  const updatedMessages = [...messages, userMessage];
+  setMessages(updatedMessages);
+  setInput('');
+
+  try {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: updatedMessages })
     });
+
     const data = await response.json();
-    setMessages([...updatedMessages, data.reply]);
-  };
+
+    if (data.reply) {
+      setMessages([...updatedMessages, data.reply]);
+    } else {
+      setMessages([...updatedMessages, { role: 'assistant', content: '⚠️ Something went wrong. Try again later.' }]);
+    }
+  } catch (err) {
+    setMessages([...updatedMessages, { role: 'assistant', content: '❌ Failed to reach server.' }]);
+    console.error('Chatbot error:', err);
+  }
+};
 
   return (
     <div className="fixed bottom-6 right-6 w-80 shadow-lg rounded-xl bg-white border p-4 animate-fade-in">
