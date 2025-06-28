@@ -6,6 +6,14 @@ export default async function handler(request: Request): Promise<Response> {
   try {
     const body = await request.json();
 
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('Missing OpenAI API key');
+      return new Response(
+        JSON.stringify({ reply: { content: '❌ Server misconfiguration. Missing API key.' } }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
