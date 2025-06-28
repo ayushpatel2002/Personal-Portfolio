@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from "framer-motion";
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -56,10 +57,13 @@ export default function Chatbot() {
         return;
       }
 
-      const reply = typeof data?.reply?.content === 'string' ? data.reply.content : null;
+      const reply = typeof data?.reply?.content === 'string' && data.reply.content.trim() !== ''
+        ? data.reply.content
+        : null;
 
       if (!response.ok || !reply) {
         console.error('Invalid server response:', data);
+        console.log('Full raw response content:', raw);
         setMessages([
           ...updatedMessages,
           {
@@ -87,32 +91,34 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 w-80 shadow-lg rounded-xl bg-white border p-4 animate-fade-in">
-      <div className="h-48 overflow-y-auto text-sm mb-2">
-        {messages.slice(1).map((msg, idx) => (
-          <div key={idx + '-' + msg.role + '-' + msg.content.slice(0, 10)} className={msg.role === 'user' ? 'text-right text-blue-700' : 'text-left text-gray-800'}>
-            <p className="my-1 whitespace-pre-wrap">{msg.content || '[Empty message]'}</p>
-          </div>
-        ))}
-        {isLoading && <div className="text-left text-gray-500 italic">Typing...</div>}
-        <div ref={messagesEndRef} />
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <div className="fixed bottom-6 right-6 w-80 shadow-xl rounded-xl bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 border border-gray-300 p-4 animate-fade-in backdrop-blur-sm">
+        <div className="h-48 overflow-y-auto text-sm mb-2">
+          {messages.slice(1).map((msg, idx) => (
+            <div key={idx + '-' + msg.role + '-' + msg.content.slice(0, 10)} className={msg.role === 'user' ? 'text-right text-purple-700' : 'text-left text-gray-900'}>
+              <p className="my-1 whitespace-pre-wrap">{msg.content || '[Empty message]'}</p>
+            </div>
+          ))}
+          {isLoading && <div className="text-left text-gray-500 italic">Typing...</div>}
+          <div ref={messagesEndRef} />
+        </div>
+        <div className="flex gap-2">
+          <input
+            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
+          />
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-full text-sm transition" onClick={sendMessage}>
+            Send
+          </button>
+        </div>
       </div>
-      <div className="flex gap-2">
-        <input
-          className="border rounded w-full p-1"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              sendMessage();
-            }
-          }}
-        />
-        <button className="bg-blue-600 text-white px-2 py-1 rounded" onClick={sendMessage}>
-          Send
-        </button>
-      </div>
-    </div>
+    </motion.div>
   );
 }
