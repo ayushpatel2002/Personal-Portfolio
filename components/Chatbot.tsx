@@ -35,20 +35,19 @@ export default function Chatbot() {
       const data = await response.json();
       setIsLoading(false);
 
-      if (data.reply && data.reply.content) {
-        setMessages([...updatedMessages, { role: 'assistant', content: data.reply.content }]);
-      } else {
-        setMessages([
-          ...updatedMessages,
-          { role: 'assistant', content: '⚠️ Something went wrong. Please try again.' },
-        ]);
+      if (!response.ok || !data || !data.reply || !data.reply.content) {
+        throw new Error('Invalid or missing response from server');
       }
+
+      setMessages([...updatedMessages, { role: 'assistant', content: data.reply.content }]);
     } catch (error) {
-      setIsLoading(false);
       console.error('Chatbot error:', error);
       setMessages([
         ...updatedMessages,
-        { role: 'assistant', content: '❌ Failed to connect to the server. Please try again.' },
+        {
+          role: 'assistant',
+          content: '❌ Something went wrong. Please try again or check the console for more info.',
+        },
       ]);
     }
   };
