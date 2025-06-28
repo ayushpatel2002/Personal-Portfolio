@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -15,6 +15,12 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -82,18 +88,24 @@ export default function Chatbot() {
     <div className="fixed bottom-6 right-6 w-80 shadow-lg rounded-xl bg-white border p-4 animate-fade-in">
       <div className="h-48 overflow-y-auto text-sm mb-2">
         {messages.slice(1).map((msg, idx) => (
-          <div key={idx} className={msg.role === 'user' ? 'text-right text-blue-700' : 'text-left text-gray-800'}>
+          <div key={idx + '-' + msg.role + '-' + msg.content.slice(0, 10)} className={msg.role === 'user' ? 'text-right text-blue-700' : 'text-left text-gray-800'}>
             <p className="my-1 whitespace-pre-wrap">{msg.content}</p>
           </div>
         ))}
         {isLoading && <div className="text-left text-gray-500 italic">Typing...</div>}
+        <div ref={messagesEndRef} />
       </div>
       <div className="flex gap-2">
         <input
           className="border rounded w-full p-1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
         />
         <button className="bg-blue-600 text-white px-2 py-1 rounded" onClick={sendMessage}>
           Send
