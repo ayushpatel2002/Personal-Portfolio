@@ -39,8 +39,10 @@ export default function Chatbot() {
       });
 
       let data: any;
+      let raw = await response.text();
+      console.log('👉 Raw response:', raw);
       try {
-        data = await response.json();
+        data = JSON.parse(raw);
       } catch (jsonError) {
         console.error('❌ Failed to parse JSON:', jsonError);
         setMessages([
@@ -54,7 +56,7 @@ export default function Chatbot() {
         return;
       }
 
-      const reply = data?.reply?.content;
+      const reply = typeof data?.reply?.content === 'string' ? data.reply.content : null;
 
       if (!response.ok || !reply) {
         console.error('Invalid server response:', data);
@@ -89,7 +91,7 @@ export default function Chatbot() {
       <div className="h-48 overflow-y-auto text-sm mb-2">
         {messages.slice(1).map((msg, idx) => (
           <div key={idx + '-' + msg.role + '-' + msg.content.slice(0, 10)} className={msg.role === 'user' ? 'text-right text-blue-700' : 'text-left text-gray-800'}>
-            <p className="my-1 whitespace-pre-wrap">{msg.content}</p>
+            <p className="my-1 whitespace-pre-wrap">{msg.content || '[Empty message]'}</p>
           </div>
         ))}
         {isLoading && <div className="text-left text-gray-500 italic">Typing...</div>}
