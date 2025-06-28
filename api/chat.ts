@@ -12,7 +12,7 @@ export default async function handler(request: Request): Promise<Response> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: 'gpt-3.5-turbo',
       messages: body.messages,
       temperature: 0.7,
     }),
