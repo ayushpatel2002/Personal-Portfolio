@@ -32,14 +32,39 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
-      const data = await response.json();
-      setIsLoading(false);
-
-      if (!response.ok || !data || !data.reply || !data.reply.content) {
-        throw new Error('Invalid or missing response from server');
+      let data: any;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('❌ Failed to parse JSON:', jsonError);
+        setMessages([
+          ...updatedMessages,
+          {
+            role: 'assistant',
+            content: '❌ Could not understand the response. Please try again later.',
+          },
+        ]);
+        setIsLoading(false);
+        return;
       }
 
-      setMessages([...updatedMessages, { role: 'assistant', content: data.reply.content }]);
+      const reply = data?.reply?.content;
+
+      if (!response.ok || !reply) {
+        console.error('Invalid server response:', data);
+        setMessages([
+          ...updatedMessages,
+          {
+            role: 'assistant',
+            content: '❌ Invalid server response. Please try again later.',
+          },
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
+      setMessages([...updatedMessages, { role: 'assistant', content: reply }]);
+      setIsLoading(false);
     } catch (error) {
       console.error('Chatbot error:', error);
       setMessages([
@@ -49,6 +74,7 @@ export default function Chatbot() {
           content: '❌ Something went wrong. Please try again or check the console for more info.',
         },
       ]);
+      setIsLoading(false);
     }
   };
 
