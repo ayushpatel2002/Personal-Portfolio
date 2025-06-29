@@ -32,15 +32,24 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
+    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
+
+    if (!apiKey) {
+      setMessages([...updatedMessages, {
+        role: 'assistant',
+        content: '❌ API key missing. Please try again later.',
+      }]);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       console.log('📨 Sent messages:', JSON.stringify(updatedMessages, null, 2));
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
-          'HTTP-Referer': 'https://your-site.vercel.app',
-          'X-Title': 'AyushPortfolioBot'
+          'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           model: 'mistralai/mistral-7b-instruct',
@@ -58,6 +67,7 @@ export default function Chatbot() {
         console.log('✅ Parsed JSON response:', JSON.stringify(data, null, 2));
       } catch (jsonError) {
         console.error('❌ Failed to parse JSON:', jsonError);
+        console.error("⚠️ API error response:", raw);
         setMessages([
           ...updatedMessages,
           {
