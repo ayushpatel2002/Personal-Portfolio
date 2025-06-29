@@ -67,12 +67,7 @@ export default function Chatbot() {
         return;
       }
 
-      const reply =
-        typeof data?.reply?.content === 'string' && data.reply.content.trim()
-          ? data.reply.content
-          : typeof data?.message === 'string'
-          ? data.message
-          : null;
+      const reply = data?.choices?.[0]?.message?.content?.trim() || null;
 
       if (!response.ok || !reply) {
         console.error('Invalid server response:', data);
