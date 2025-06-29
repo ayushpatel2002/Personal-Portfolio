@@ -33,6 +33,7 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
+      console.log('📨 Sent messages:', JSON.stringify(updatedMessages, null, 2));
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -54,6 +55,7 @@ export default function Chatbot() {
       let data: any;
       try {
         data = JSON.parse(raw);
+        console.log('✅ Parsed JSON response:', JSON.stringify(data, null, 2));
       } catch (jsonError) {
         console.error('❌ Failed to parse JSON:', jsonError);
         setMessages([
@@ -70,7 +72,9 @@ export default function Chatbot() {
       const reply = data?.choices?.[0]?.message?.content?.trim() || null;
 
       if (!response.ok || !reply) {
-        console.error('Invalid server response:', data);
+        console.error('🔍 Server response JSON:', JSON.stringify(data, null, 2));
+        console.error('⛔ response.ok:', response.ok);
+        console.error('⛔ reply:', reply);
         setMessages([
           ...updatedMessages,
           {
