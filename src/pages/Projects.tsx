@@ -1,5 +1,14 @@
+import { motion } from 'framer-motion';
+
 export const Projects = () => (
-  <section className="mb-20" id="projects">
+  <motion.section
+    className="mb-20"
+    id="projects"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+  >
     <h2 className="text-3xl font-semibold mb-4">Projects</h2>
     <ul className="space-y-6">
       <li>
@@ -12,5 +21,5 @@ export const Projects = () => (
         <strong>Job Ad Classifier (NLP):</strong> Used NLP to classify job ads by category and intent in a university-led project.
       </li>
     </ul>
-  </section>
+  </motion.section>
 );
