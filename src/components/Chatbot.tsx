@@ -129,14 +129,14 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-20 right-6 w-80 max-h-[32rem] bg-white border border-gray-200 rounded-xl shadow-xl flex flex-col p-4"
+            className="fixed bottom-20 right-6 w-80 max-h-[32rem] bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl flex flex-col p-4"
           >
             <div className="flex-1 space-y-2 overflow-y-auto mb-2">
               {messages.slice(1).map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded ${
-                    msg.role === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'
+                  className={`p-3 rounded-md shadow ${
+                    msg.role === 'user' ? 'bg-blue-100/80 text-right' : 'bg-gray-100/80 text-left'
                   }`}
                 >
                   <ReactMarkdown
