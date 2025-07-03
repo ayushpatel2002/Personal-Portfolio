@@ -2,15 +2,15 @@ import { motion } from 'framer-motion';
 
 export const Projects = () => (
   <motion.section
-    className="mb-20"
+    className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
     id="projects"
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6 }}
   >
-    <h2 className="text-3xl font-semibold mb-4">Projects</h2>
-    <ul className="space-y-6">
+    <h2 className="text-4xl font-bold mb-6 text-indigo-700">Projects</h2>
+    <ul className="space-y-4 text-gray-700">
       <li>
         <strong>Stack Exchange Modeling (Python):</strong> Modeled user behavior using Scikit-learn on Stack Exchange posts.
       </li>
