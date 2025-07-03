@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -7,6 +7,7 @@ interface Message {
 }
 
 export default function Chatbot() {
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'system',
@@ -112,40 +113,59 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="chatbot-container p-4 max-w-xl mx-auto bg-white rounded shadow">
-      <div className="messages space-y-2 overflow-y-auto max-h-96">
-        {messages.slice(1).map((msg, idx) => (
-          <div
-            key={idx}
-            className={`p-3 rounded ${
-              msg.role === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'
-            }`}
+    <>
+      <button
+        className="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none"
+        onClick={() => setIsOpen((o) => !o)}
+      >
+        {isOpen ? '×' : 'Chat'}
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-20 right-6 w-80 max-h-[32rem] bg-white border border-gray-200 rounded-xl shadow-xl flex flex-col p-4"
           >
-            <span>{msg.content}</span>
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-      <div className="input-area flex mt-4 gap-2">
-        <input
-          type="text"
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter' && !isLoading) sendMessage();
-          }}
-          placeholder="Ask about Ayush Patel..."
-          disabled={isLoading}
-          className="flex-1 border rounded px-4 py-2"
-        />
-        <button
-          onClick={sendMessage}
-          disabled={isLoading || !input.trim()}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {isLoading ? '...' : 'Send'}
-        </button>
-      </div>
-    </div>
+            <div className="flex-1 space-y-2 overflow-y-auto mb-2">
+              {messages.slice(1).map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`p-3 rounded ${
+                    msg.role === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'
+                  }`}
+                >
+                  <span>{msg.content}</span>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !isLoading) sendMessage();
+                }}
+                placeholder="Ask about Ayush Patel..."
+                disabled={isLoading}
+                className="flex-1 border rounded px-3 py-2 text-sm"
+              />
+              <button
+                onClick={sendMessage}
+                disabled={isLoading || !input.trim()}
+                className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 text-sm"
+              >
+                {isLoading ? '...' : 'Send'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
