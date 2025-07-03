@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -138,7 +139,27 @@ export default function Chatbot() {
                     msg.role === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'
                   }`}
                 >
-                  <span>{msg.content}</span>
+                  <ReactMarkdown
+                    className="text-sm break-words whitespace-pre-wrap"
+                    components={{
+                      a: ({node, ...props}) => (
+                        <a
+                          {...props}
+                          className="text-blue-600 underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      ),
+                      ul: ({node, ...props}) => (
+                        <ul className="list-disc pl-5" {...props} />
+                      ),
+                      ol: ({node, ...props}) => (
+                        <ol className="list-decimal pl-5" {...props} />
+                      ),
+                    }}
+                  >
+                    {msg.content}
+                  </ReactMarkdown>
                 </div>
               ))}
               <div ref={messagesEndRef} />
