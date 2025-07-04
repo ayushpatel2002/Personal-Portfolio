@@ -10,7 +10,34 @@ export const Contact = () => (
     transition={{ duration: 0.6 }}
   >
     <h2 className="text-4xl font-bold mb-6 text-indigo-700">Contact</h2>
-    <p className="text-gray-700">📧 <a href="mailto:ayushkp38@gmail.com" className="underline text-blue-600">ayushkp38@gmail.com</a></p>
-    <p className="text-gray-700">🔗 <a href="https://github.com/ayushpatel2002" className="underline text-blue-600">GitHub</a> | <a href="https://linkedin.com/in/ayushkpatel" className="underline text-blue-600">LinkedIn</a></p>
+    <p className="text-gray-700 mb-2">
+      📧{' '}
+      <a
+        href="mailto:ayushkp38@gmail.com"
+        className="underline text-blue-600 hover:text-blue-800"
+      >
+        ayushkp38@gmail.com
+      </a>
+    </p>
+    <p className="text-gray-700">
+      🔗{' '}
+      <a
+        href="https://github.com/ayushpatel2002"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline text-blue-600 hover:text-blue-800"
+      >
+        GitHub
+      </a>{' '}
+      |{' '}
+      <a
+        href="https://linkedin.com/in/ayushkpatel"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline text-blue-600 hover:text-blue-800"
+      >
+        LinkedIn
+      </a>
+    </p>
   </motion.section>
 );

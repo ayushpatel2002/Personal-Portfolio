@@ -37,21 +37,23 @@ export default function Chatbot() {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
 
     if (!apiKey) {
-      setMessages([...updatedMessages, {
-        role: 'assistant',
-        content: '❌ API key missing. Please try again later.',
-      }]);
+      setMessages([
+        ...updatedMessages,
+        {
+          role: 'assistant',
+          content: '❌ API key missing. Please try again later.',
+        },
+      ]);
       setIsLoading(false);
       return;
     }
 
     try {
-      console.log('📨 Sent messages:', JSON.stringify(updatedMessages, null, 2));
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           model: 'mistralai/mistral-7b-instruct',
@@ -61,15 +63,10 @@ export default function Chatbot() {
       });
 
       const raw = await response.text();
-      console.log('👉 Raw response:', raw);
-
       let data: any;
       try {
         data = JSON.parse(raw);
-        console.log('✅ Parsed JSON response:', JSON.stringify(data, null, 2));
       } catch (jsonError) {
-        console.error('❌ Failed to parse JSON:', jsonError);
-        console.error("⚠️ API error response:", raw);
         setMessages([
           ...updatedMessages,
           {
@@ -84,9 +81,6 @@ export default function Chatbot() {
       const reply = data?.choices?.[0]?.message?.content?.trim() || null;
 
       if (!response.ok || !reply) {
-        console.error('🔍 Server response JSON:', JSON.stringify(data, null, 2));
-        console.error('⛔ response.ok:', response.ok);
-        console.error('⛔ reply:', reply);
         setMessages([
           ...updatedMessages,
           {
@@ -100,7 +94,6 @@ export default function Chatbot() {
 
       setMessages([...updatedMessages, { role: 'assistant', content: reply }]);
     } catch (error) {
-      console.error('Chatbot error:', error);
       setMessages([
         ...updatedMessages,
         {
@@ -142,7 +135,7 @@ export default function Chatbot() {
                   <ReactMarkdown
                     className="text-sm break-words whitespace-pre-wrap"
                     components={{
-                      a: ({node, ...props}) => (
+                      a: (props) => (
                         <a
                           {...props}
                           className="text-blue-600 underline"
@@ -150,12 +143,8 @@ export default function Chatbot() {
                           rel="noopener noreferrer"
                         />
                       ),
-                      ul: ({node, ...props}) => (
-                        <ul className="list-disc pl-5" {...props} />
-                      ),
-                      ol: ({node, ...props}) => (
-                        <ol className="list-decimal pl-5" {...props} />
-                      ),
+                      ul: (props) => <ul className="list-disc pl-5" {...props} />,
+                      ol: (props) => <ol className="list-decimal pl-5" {...props} />,
                     }}
                   >
                     {msg.content}
