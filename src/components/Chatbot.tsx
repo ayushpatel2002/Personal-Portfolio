@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -36,21 +37,23 @@ export default function Chatbot() {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
 
     if (!apiKey) {
-      setMessages([...updatedMessages, {
-        role: 'assistant',
-        content: '❌ API key missing. Please try again later.',
-      }]);
+      setMessages([
+        ...updatedMessages,
+        {
+          role: 'assistant',
+          content: '❌ API key missing. Please try again later.',
+        },
+      ]);
       setIsLoading(false);
       return;
     }
 
     try {
-      console.log('📨 Sent messages:', JSON.stringify(updatedMessages, null, 2));
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           model: 'mistralai/mistral-7b-instruct',
@@ -60,15 +63,10 @@ export default function Chatbot() {
       });
 
       const raw = await response.text();
-      console.log('👉 Raw response:', raw);
-
       let data: any;
       try {
         data = JSON.parse(raw);
-        console.log('✅ Parsed JSON response:', JSON.stringify(data, null, 2));
       } catch (jsonError) {
-        console.error('❌ Failed to parse JSON:', jsonError);
-        console.error("⚠️ API error response:", raw);
         setMessages([
           ...updatedMessages,
           {
@@ -83,9 +81,6 @@ export default function Chatbot() {
       const reply = data?.choices?.[0]?.message?.content?.trim() || null;
 
       if (!response.ok || !reply) {
-        console.error('🔍 Server response JSON:', JSON.stringify(data, null, 2));
-        console.error('⛔ response.ok:', response.ok);
-        console.error('⛔ reply:', reply);
         setMessages([
           ...updatedMessages,
           {
@@ -99,7 +94,6 @@ export default function Chatbot() {
 
       setMessages([...updatedMessages, { role: 'assistant', content: reply }]);
     } catch (error) {
-      console.error('Chatbot error:', error);
       setMessages([
         ...updatedMessages,
         {
@@ -128,17 +122,33 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-20 right-6 w-80 max-h-[32rem] bg-white border border-gray-200 rounded-xl shadow-xl flex flex-col p-4"
+            className="fixed bottom-20 right-6 w-80 max-h-[32rem] bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-2xl flex flex-col p-4"
           >
             <div className="flex-1 space-y-2 overflow-y-auto mb-2">
               {messages.slice(1).map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded ${
-                    msg.role === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'
+                  className={`p-3 rounded-md shadow ${
+                    msg.role === 'user' ? 'bg-blue-100/80 text-right' : 'bg-gray-100/80 text-left'
                   }`}
                 >
-                  <span>{msg.content}</span>
+                  <ReactMarkdown
+                    className="text-sm break-words whitespace-pre-wrap"
+                    components={{
+                      a: (props) => (
+                        <a
+                          {...props}
+                          className="text-blue-600 underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      ),
+                      ul: (props) => <ul className="list-disc pl-5" {...props} />,
+                      ol: (props) => <ol className="list-decimal pl-5" {...props} />,
+                    }}
+                  >
+                    {msg.content}
+                  </ReactMarkdown>
                 </div>
               ))}
               <div ref={messagesEndRef} />
