@@ -29,7 +29,7 @@ export default function Chatbot() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const sendMessage = async (promptOverride?: string) => {
     const content = promptOverride || input.trim();
@@ -89,6 +89,30 @@ export default function Chatbot() {
 
   return (
     <>
+      <style>
+        {`
+          @keyframes flash {
+            0% { opacity: 0.2; }
+            20% { opacity: 1; }
+            100% { opacity: 0.2; }
+          }
+          .dot-flash {
+            width: 8px;
+            height: 8px;
+            background-color: #4b5563;
+            border-radius: 9999px;
+            animation: flash 1s infinite;
+            margin-right: 4px;
+          }
+          .dot-flash:nth-child(2) {
+            animation-delay: 0.2s;
+          }
+          .dot-flash:nth-child(3) {
+            animation-delay: 0.4s;
+          }
+        `}
+      </style>
+
       <button
         className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none"
         onClick={() => setIsOpen(true)}
@@ -106,7 +130,10 @@ export default function Chatbot() {
             className="fixed top-0 right-0 w-full max-w-md h-screen bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
           >
             <div className="p-4 border-b flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-indigo-700">Ask about Ayush Patel</h2>
+              <div>
+                <h2 className="text-lg font-semibold text-indigo-700">Ask about Ayush Patel</h2>
+                <p className="text-xs text-gray-500">💡 Powered by AI (Mistral via OpenRouter)</p>
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-500 hover:text-gray-700 text-xl"
@@ -127,6 +154,15 @@ export default function Chatbot() {
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
               ))}
+
+              {isLoading && (
+                <div className="p-3 rounded-md bg-gray-100/80 shadow text-left text-sm text-gray-600 flex items-center">
+                  <span className="dot-flash" />
+                  <span className="dot-flash" />
+                  <span className="dot-flash" />
+                </div>
+              )}
+
               <div ref={messagesEndRef} />
             </div>
 
