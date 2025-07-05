@@ -6,13 +6,13 @@ import Chatbot from './components/Chatbot';
 
 export default function App() {
   return (
-    <div className="font-sans text-gray-800 bg-gradient-to-b from-gray-50 to-white min-h-screen">
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-20 bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl">
+    <div className="font-sans bg-gray-900 text-gray-100 min-h-screen">
+      <main className="max-w-5xl mx-auto px-4 py-16 space-y-20">
         <About />
         <Projects />
+        <Chatbot />
         <Contact />
       </main>
-      <Chatbot />
     </div>
   );
 }

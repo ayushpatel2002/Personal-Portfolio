@@ -1,0 +1,50 @@
+[
+  {
+    "type": "project",
+    "title": "Forecasting Energy Use",
+    "summary": "Developed a time series model using R and Prophet to forecast energy consumption patterns.",
+    "content": "Ayush implemented a robust energy consumption forecasting pipeline using R and Facebook's Prophet library. The project involved preprocessing time series data, handling missing values, generating lag-based and rolling statistical features, and applying seasonality-based modeling. He conducted rigorous evaluation through cross-validation, resulting in improved forecasting accuracy across multiple regions. This project highlighted his strengths in statistical modeling, trend detection, and predictive analytics."
+  },
+  {
+    "type": "project",
+    "title": "NLP-Based Job Advertisement Classification",
+    "summary": "Built a Flask-based NLP classifier that categorizes job ads based on sector and intent.",
+    "content": "Ayush led the development of a machine learning pipeline to classify job advertisements using NLP techniques. The process involved tokenization, stopword filtering, TF-IDF vectorization, and Logistic Regression. He also integrated the model into a Flask web app with real-time input processing. This university project demonstrated his understanding of natural language processing, model serving, and UI/UX data interaction. The classifier delivered >85% accuracy on labeled data and served as a recommendation engine."
+  },
+  {
+    "type": "project",
+    "title": "Equity Reporting with Power BI",
+    "summary": "Built dynamic dashboards for NT Department of Education to support equity-driven reporting.",
+    "content": "In his current role as a Data Analyst, Ayush developed advanced Power BI dashboards with interactive filters, multi-year comparison views, and KPI indicators. These dashboards enabled service quality monitoring across assessment cycles and domains. By combining DAX-driven measures with SQL and R-based preprocessing, he delivered insights that influenced resource allocation and equity strategies. The work required translating policy into metrics and enabled data transparency at executive levels."
+  },
+  {
+    "type": "internship",
+    "title": "Data Lakehouse Intern – Digicor",
+    "summary": "Engineered Spark-based ETL pipelines and streamlined internal data workflows.",
+    "content": "As a Data Lakehouse Intern, Ayush designed scalable ETL pipelines using Apache Spark and Delta Lake. He transformed raw datasets into analytical tables, applied metadata schemas, and performed data validation through SQL. The optimized workflows improved reporting speed by 30%. He also built Python utilities and integrated REST APIs to automate dataset access. His work laid the groundwork for a modular, fast-refresh reporting layer and improved collaboration across technical and business teams."
+  },
+  {
+    "type": "achievement",
+    "title": "AI Hackathon – People's Choice Winner",
+    "summary": "Won People's Choice Award for AI-powered student support web app.",
+    "content": "Ayush and his team built a sentiment-aware AI platform to assist students based on emotional signals and feedback. It used NLP sentiment analysis to trigger personalized resources. Ayush designed the data ingestion, model flow, and analytics dashboard components. The solution was praised for real-time usefulness and data ethics, securing top votes in the competition. This showcased his ability to build complete AI solutions in high-pressure, collaborative environments."
+  },
+  {
+    "type": "skills",
+    "title": "Core Technical & Analytical Skills",
+    "summary": "End-to-end experience with data engineering, analysis, visualization, and deployment.",
+    "content": "Ayush has a strong foundation in Python, R, SQL, and JavaScript. He is fluent with libraries and tools such as Pandas, scikit-learn, Prophet, Power BI, Apache Spark, Flask, and TailwindCSS. His expertise spans data wrangling, statistical modeling, forecasting, NLP, data lakehouse architecture, and full-stack analytics dashboards. He is comfortable with Git, REST APIs, data governance, and stakeholder alignment. Additionally, he has a working understanding of AWS and Azure AI fundamentals."
+  },
+  {
+    "type": "about",
+    "title": "About Ayush Patel",
+    "summary": "Data scientist passionate about insights, equity, and real-world applications.",
+    "content": "Ayush Patel is a data professional driven by a desire to use data for impact. With a Bachelor of IT (Data Science major) from RMIT, a 3.5 GPA, and a WAM of 85, he brings analytical rigor, engineering discipline, and human-centered thinking to every project. He thrives in both technical build phases and stakeholder-facing roles, often acting as a translator between data and decision-makers. His work touches education, operations, and AI development. He currently works as a Data Analyst at the Northern Territory Department of Education, where he develops Power BI dashboards, performs data preprocessing using R and SQL, and delivers equity-focused insights to support executive reporting and resource planning. He continuously learns, contributes to GitHub, and builds meaningful, scalable solutions."
+  },
+  {
+    "type": "work",
+    "title": "Data Analyst – NT Department of Education",
+    "summary": "Delivering equity-driven insights and operational dashboards for government education services.",
+    "content": "Ayush works as a Data Analyst at the Northern Territory Department of Education, where he designs and builds Power BI dashboards that help monitor service quality across regions and years. His work involves transforming raw data using R and SQL, integrating datasets, and creating DAX-driven metrics to reflect policy-relevant outcomes. He translates complex regulatory requirements into actionable KPIs, enabling senior decision-makers to make informed, equity-focused choices. His work supports reporting on early childhood education, staff qualifications, and service accessibility. He regularly collaborates across departments, ensuring that data solutions align with real-world education challenges."
+  }
+]

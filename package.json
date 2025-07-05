@@ -10,11 +10,10 @@
   },
   "dependencies": {
     "@motionone/dom": "^10.18.0",
-    "@react-spring/web": "^10.0.1",
     "framer-motion": "^10.12.16",
+    "openai": "^4.33.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intersection-observer": "^9.16.0",
     "react-markdown": "^8.0.7"
   },
   "devDependencies": {

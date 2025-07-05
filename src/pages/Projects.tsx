@@ -1,4 +1,4 @@
-import { useSpring, animated } from '@react-spring/web';
+import { motion } from 'framer-motion';
 
 const projectData = [
   {
@@ -39,24 +39,32 @@ const projectData = [
 ];
 
 export const Projects = () => (
-  <animated.section
+  <motion.section
     id="projects"
-    className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
+    className="mb-16 p-8 bg-gray-800 rounded-2xl shadow-xl"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
   >
-    <h2 className="text-4xl font-bold mb-8 text-indigo-700">Projects</h2>
+    <h2 className="text-4xl font-bold mb-8 text-indigo-400">Projects</h2>
     <div className="grid gap-6 md:grid-cols-2">
       {projectData.map((project, idx) => (
-        <animated.div
+        <motion.div
           key={idx}
-          className="bg-white border border-gray-200 rounded-xl p-6 shadow hover:shadow-lg transition"
+          className="bg-gray-700 rounded-xl p-6 shadow hover:shadow-lg transition"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: idx * 0.1 }}
         >
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-          <p className="text-gray-600 text-sm mb-3">{project.description}</p>
+          <h3 className="text-xl font-semibold text-gray-100 mb-2">{project.title}</h3>
+          <p className="text-gray-300 text-sm mb-3">{project.description}</p>
           <div className="flex flex-wrap gap-2 mb-3">
             {project.stack.map((tech, i) => (
               <span
                 key={i}
-                className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium"
+                className="text-xs bg-blue-500/20 text-blue-200 px-2 py-1 rounded-full font-medium"
               >
                 {tech}
               </span>
@@ -67,13 +75,13 @@ export const Projects = () => (
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-blue-300 hover:underline"
             >
               View on GitHub →
             </a>
           )}
-        </animated.div>
+        </motion.div>
       ))}
     </div>
-  </animated.section>
+  </motion.section>
 );
