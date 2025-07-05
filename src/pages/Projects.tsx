@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { useSpring, animated } from '@react-spring/web';
 
 const projectData = [
   {
@@ -39,20 +39,15 @@ const projectData = [
 ];
 
 export const Projects = () => (
-  <motion.section
+  <animated.section
     id="projects"
     className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
   >
     <h2 className="text-4xl font-bold mb-8 text-indigo-700">Projects</h2>
     <div className="grid gap-6 md:grid-cols-2">
       {projectData.map((project, idx) => (
-        <motion.div
+        <animated.div
           key={idx}
-          whileHover={{ scale: 1.02, y: -4 }}
           className="bg-white border border-gray-200 rounded-xl p-6 shadow hover:shadow-lg transition"
         >
           <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
@@ -77,8 +72,8 @@ export const Projects = () => (
               View on GitHub →
             </a>
           )}
-        </motion.div>
+        </animated.div>
       ))}
     </div>
-  </motion.section>
+  </animated.section>
 );
