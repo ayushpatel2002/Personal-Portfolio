@@ -51,3 +51,4 @@ data/train.json
 
 # Prevent accidentally committing large files or secrets
 openrouter_key.txt
+vectorstore/
