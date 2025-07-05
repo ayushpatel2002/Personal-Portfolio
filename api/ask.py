@@ -1,0 +1,22 @@
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from query import query_index  # this is your RAG logic
+
+app = FastAPI()
+
+# Allow frontend requests (dev only; restrict later in prod)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/ask")
+async def ask(request: Request):
+    body = await request.json()
+    question = body.get("question", "")
+    if not question:
+        return {"answer": "No question provided."}
+    answer = query_index(question)
+    return {"answer": answer}

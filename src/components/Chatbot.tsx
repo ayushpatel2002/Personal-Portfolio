@@ -41,33 +41,17 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
-    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
-    if (!apiKey) {
-      setMessages([
-        ...updatedMessages,
-        { role: 'assistant', content: '❌ API key missing. Please try again later.' },
-      ]);
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch('http://localhost:8080/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-          model: 'mistralai/mistral-7b-instruct',
-          messages: updatedMessages,
-          temperature: 0.7,
-        }),
+        body: JSON.stringify({ question: content }),
       });
 
-      const raw = await response.text();
-      const data = JSON.parse(raw);
-      const reply = data?.choices?.[0]?.message?.content?.trim();
+      const data = await response.json();
+      const reply = data?.answer?.trim();
 
       if (!response.ok || !reply) {
         setMessages([
@@ -86,6 +70,8 @@ export default function Chatbot() {
       setIsLoading(false);
     }
   };
+
+  const MotionDiv = motion.div as typeof motion.div;
 
   return (
     <>
@@ -122,7 +108,7 @@ export default function Chatbot() {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <MotionDiv
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -201,7 +187,7 @@ export default function Chatbot() {
                 {isLoading ? '...' : 'Send'}
               </button>
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
     </>

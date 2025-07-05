@@ -39,6 +39,12 @@
     "type": "about",
     "title": "About Ayush Patel",
     "summary": "Data scientist passionate about insights, equity, and real-world applications.",
-    "content": "Ayush Patel is a data professional driven by a desire to use data for impact. With a Bachelor of IT (Data Science major) from RMIT, a 3.5 GPA, and a WAM of 85, he brings analytical rigor, engineering discipline, and human-centered thinking to every project. He thrives in both technical build phases and stakeholder-facing roles, often acting as a translator between data and decision-makers. His work touches education, operations, and AI development. He continuously learns, contributes to GitHub, and builds meaningful, scalable solutions."
+    "content": "Ayush Patel is a data professional driven by a desire to use data for impact. With a Bachelor of IT (Data Science major) from RMIT, a 3.5 GPA, and a WAM of 85, he brings analytical rigor, engineering discipline, and human-centered thinking to every project. He thrives in both technical build phases and stakeholder-facing roles, often acting as a translator between data and decision-makers. His work touches education, operations, and AI development. He currently works as a Data Analyst at the Northern Territory Department of Education, where he develops Power BI dashboards, performs data preprocessing using R and SQL, and delivers equity-focused insights to support executive reporting and resource planning. He continuously learns, contributes to GitHub, and builds meaningful, scalable solutions."
+  },
+  {
+    "type": "work",
+    "title": "Data Analyst – NT Department of Education",
+    "summary": "Delivering equity-driven insights and operational dashboards for government education services.",
+    "content": "Ayush works as a Data Analyst at the Northern Territory Department of Education, where he designs and builds Power BI dashboards that help monitor service quality across regions and years. His work involves transforming raw data using R and SQL, integrating datasets, and creating DAX-driven metrics to reflect policy-relevant outcomes. He translates complex regulatory requirements into actionable KPIs, enabling senior decision-makers to make informed, equity-focused choices. His work supports reporting on early childhood education, staff qualifications, and service accessibility. He regularly collaborates across departments, ensuring that data solutions align with real-world education challenges."
   }
 ]
