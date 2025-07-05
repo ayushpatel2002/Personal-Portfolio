@@ -7,9 +7,10 @@ import os
 from pathlib import Path
 from typing import List
 
-import openrouter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import Chroma
+import requests
+import json
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -18,7 +19,7 @@ VECTOR_DIR = BASE_DIR / "vectorstore"
 
 def load_api_key() -> str | None:
     """Load API key from environment or .env file."""
-    key = os.getenv("OPENROUTER_API_KEY")
+    key = os.getenv("OPENROUTER_API_KEY") or os.getenv("VITE_OPENROUTER_API_KEY")
     if key:
         return key
 
@@ -48,7 +49,6 @@ def query_index(question: str, top_k: int = 3) -> str:
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
-    client = openrouter.Client(api_key=api_key)
     messages = [
         {
             "role": "system",
@@ -59,8 +59,24 @@ def query_index(question: str, top_k: int = 3) -> str:
             "content": f"Context:\n{context}\n\nQuestion: {question}",
         },
     ]
-    resp = client.chat.completions.create(model="mistralai/mistral-7b-instruct", messages=messages)
-    return resp.choices[0].message.content
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "model": "mistralai/mistral-7b-instruct",
+        "messages": messages,
+    }
+
+    response = requests.post(
+        "https://openrouter.ai/api/v1/chat/completions",
+        headers=headers,
+        data=json.dumps(payload),
+    )
+
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"]
 
 
 def main() -> None:
@@ -86,4 +102,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
