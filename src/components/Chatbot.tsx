@@ -20,7 +20,8 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'system',
-      content: 'You are a helpful assistant that only answers based on Ayush Patel’s portfolio. Respond with relevant information only.',
+      content:
+        'You are a helpful assistant that only answers based on Ayush Patel’s portfolio. Respond with relevant information only.',
     },
   ]);
   const [input, setInput] = useState('');
@@ -104,12 +105,8 @@ export default function Chatbot() {
             animation: flash 1s infinite;
             margin-right: 4px;
           }
-          .dot-flash:nth-child(2) {
-            animation-delay: 0.2s;
-          }
-          .dot-flash:nth-child(3) {
-            animation-delay: 0.4s;
-          }
+          .dot-flash:nth-child(2) { animation-delay: 0.2s; }
+          .dot-flash:nth-child(3) { animation-delay: 0.4s; }
         `}
       </style>
 
@@ -129,6 +126,7 @@ export default function Chatbot() {
             transition={{ duration: 0.4 }}
             className="fixed top-0 right-0 w-full max-w-md h-screen bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
           >
+            {/* Header */}
             <div className="p-4 border-b flex justify-between items-center">
               <div>
                 <h2 className="text-lg font-semibold text-indigo-700">Ask about Ayush Patel</h2>
@@ -154,7 +152,6 @@ export default function Chatbot() {
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
               ))}
-
               {isLoading && (
                 <div className="p-3 rounded-md bg-gray-100/80 shadow text-left text-sm text-gray-600 flex items-center">
                   <span className="dot-flash" />
@@ -162,7 +159,6 @@ export default function Chatbot() {
                   <span className="dot-flash" />
                 </div>
               )}
-
               <div ref={messagesEndRef} />
             </div>
 
