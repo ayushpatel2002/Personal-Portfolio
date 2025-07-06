@@ -4,11 +4,18 @@ import { Projects } from './pages/Projects';
 import { Contact } from './pages/Contact';
 import Chatbot from './components/Chatbot';
 
-function AnimatedCounter({ to, suffix = '', duration = 2000, className = '' }) {
+interface AnimatedCounterProps {
+  to: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}
+
+function AnimatedCounter({ to, suffix = '', duration = 2000, className = '' }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     let start = 0;
-    const step = (timestamp) => {
+    const step = (timestamp: number) => {
       const progress = Math.min((timestamp / duration), 1);
       setCount(Math.floor(progress * to));
       if (progress < 1) {
