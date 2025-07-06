@@ -27,6 +27,12 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
+  const springStyle = useSpring({
+    from: { transform: 'translateX(100%)' },
+    to: { transform: isOpen ? 'translateX(0%)' : 'translateX(100%)' },
+    config: { tension: 250, friction: 25 },
+  });
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
@@ -108,11 +114,7 @@ export default function Chatbot() {
 
       {isOpen && (
         <MotionDiv
-          style={useSpring({
-            from: { transform: 'translateX(100%)' },
-            to: { transform: isOpen ? 'translateX(0%)' : 'translateX(100%)' },
-            config: { tension: 250, friction: 25 },
-          })}
+          style={springStyle}
           className="fixed top-0 right-0 w-full max-w-md h-screen bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
         >
           <div className="p-4 border-b flex justify-between items-center">
