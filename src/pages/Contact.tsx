@@ -2,42 +2,47 @@ import { motion } from 'framer-motion';
 
 export const Contact = () => (
   <motion.section
-    className="p-8 bg-white/90 rounded-2xl shadow-lg"
+    className="relative p-8 bg-[#1A1A2E]/90 text-[#EAEAEA] rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
     id="contact"
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6 }}
   >
-    <h2 className="text-4xl font-bold mb-6 text-indigo-700">Contact</h2>
-    <p className="text-gray-700 mb-2">
-      📧{' '}
+    <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
+      Let’s Connect
+    </h2>
+    <p className="mb-2">
+      <span className="mr-2 text-pink-400 animate-pulse">📧</span>
       <a
         href="mailto:ayushkp38@gmail.com"
-        className="underline text-blue-600 hover:text-blue-800"
+        className="underline font-semibold text-[#70A1FF] hover:text-[#A4C8FF] transition-colors"
       >
         ayushkp38@gmail.com
       </a>
     </p>
-    <p className="text-gray-700">
-      🔗{' '}
+    <p className="mb-2">
+      <span className="mr-2 text-pink-400 animate-pulse">🔗</span>
       <a
-        href="https://github.com/ayushpatel2002"
+        href="https://www.linkedin.com/in/ayushkpatel/"
+        className="underline font-semibold text-[#70A1FF] hover:text-[#A4C8FF] transition-colors"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline text-blue-600 hover:text-blue-800"
-      >
-        GitHub
-      </a>{' '}
-      |{' '}
-      <a
-        href="https://linkedin.com/in/ayushkpatel"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline text-blue-600 hover:text-blue-800"
       >
         LinkedIn
       </a>
     </p>
+    <p className="mb-2">
+      <span className="mr-2 text-pink-400 animate-pulse">💻</span>
+      <a
+        href="https://github.com/ayushpatel2002"
+        className="underline font-semibold text-[#70A1FF] hover:text-[#A4C8FF] transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </a>
+    </p>
+    <div className="absolute -top-10 -right-10 w-80 h-80 bg-gradient-to-br from-blue-500 to-fuchsia-500 opacity-10 blur-3xl rounded-full -z-10 animate-pulse" />
   </motion.section>
 );

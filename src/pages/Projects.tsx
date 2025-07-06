@@ -41,27 +41,34 @@ const projectData = [
 export const Projects = () => (
   <motion.section
     id="projects"
-    className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
-    initial={{ opacity: 0, y: 20 }}
+    className="relative mb-16 p-8 bg-[#1e1e2f]/90 text-gray-100 rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
+    initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
+    transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
   >
-    <h2 className="text-4xl font-bold mb-8 text-indigo-700">Projects</h2>
+    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
+      Featured Projects
+    </h2>
     <div className="grid gap-6 md:grid-cols-2">
       {projectData.map((project, idx) => (
         <motion.div
           key={idx}
-          whileHover={{ scale: 1.02, y: -4 }}
-          className="bg-white border border-gray-200 rounded-xl p-6 shadow hover:shadow-lg transition"
+          whileHover={{
+            scale: 1.03,
+            y: -8,
+            boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.25)',
+            transition: { type: 'spring', stiffness: 300, damping: 20 }
+          }}
+          className="bg-[#2a2a3d] border border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-2xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40"
         >
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-          <p className="text-gray-600 text-sm mb-3">{project.description}</p>
+          <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+          <p className="text-gray-300 text-sm mb-3">{project.description}</p>
           <div className="flex flex-wrap gap-2 mb-3">
             {project.stack.map((tech, i) => (
               <span
                 key={i}
-                className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium"
+                className="text-xs bg-gradient-to-r from-purple-700 to-blue-700 text-white px-2 py-1 rounded-full font-medium shadow-sm"
               >
                 {tech}
               </span>
@@ -72,7 +79,7 @@ export const Projects = () => (
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-blue-400 hover:underline"
             >
               View on GitHub →
             </a>
@@ -80,5 +87,6 @@ export const Projects = () => (
         </motion.div>
       ))}
     </div>
+    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-10 blur-[180px] rounded-full -z-10" />
   </motion.section>
 );

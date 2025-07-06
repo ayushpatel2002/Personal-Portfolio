@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useSpring, animated } from '@react-spring/web';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
@@ -30,6 +30,32 @@ export default function Chatbot() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen) {
+        setIsOpen(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && messages.length === 1) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: "👋 Hi! I'm AyushBot — your AI guide to Ayush Patel’s portfolio. Ask me about his projects, skills, or experience!",
+        },
+      ]);
+    }
+  }, [isOpen]);
+
+  const slideIn = useSpring({
+    from: { transform: 'translateX(100%)' },
+    to: { transform: 'translateX(0%)' },
+  });
 
   const sendMessage = async (promptOverride?: string) => {
     const content = promptOverride || input.trim();
@@ -98,25 +124,26 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none hover:bg-blue-500"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-110 hover:shadow-2xl transition-transform duration-300 group"
         onClick={() => setIsOpen(true)}
       >
-        Chat
+        <span className="text-sm font-semibold flex items-center space-x-1">
+          🤖
+          <span className="group-hover:animate-pulse">Ask AyushBot</span>
+        </span>
+        <span className="bg-white text-purple-700 text-xs font-bold px-2 py-1 rounded shadow-md">AI</span>
+        <span className="w-2 h-2 rounded-full bg-green-400 animate-ping ml-1"></span>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-0 right-0 w-full max-w-md h-screen bg-gray-900 border-l border-gray-700 shadow-2xl z-50 flex flex-col"
-          >
+      {isOpen && (
+        <animated.div
+          style={slideIn}
+          className="fixed top-0 right-0 w-full max-w-md h-screen bg-gray-900 border-l border-gray-700 shadow-2xl z-50 flex flex-col"
+        >
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
               <div>
-                <h2 className="text-lg font-semibold text-indigo-300">Ask about Ayush Patel</h2>
-                <p className="text-xs text-gray-300">💡 Powered by AI (Mistral via OpenRouter)</p>
+                <h2 className="text-lg font-semibold text-indigo-300">👋 I’m AyushBot</h2>
+                <p className="text-xs text-gray-300">Ask me anything about Ayush’s projects, skills, or experience – Powered by AI, trained on his real portfolio.</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -185,9 +212,8 @@ export default function Chatbot() {
                 {isLoading ? '...' : 'Send'}
               </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </animated.div>
+      )}
     </>
   );
 }

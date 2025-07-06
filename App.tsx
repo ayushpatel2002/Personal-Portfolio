@@ -1,18 +1,49 @@
 import React from 'react';
-import { About } from './pages/About';
-import { Projects } from './pages/Projects';
-import { Contact } from './pages/Contact';
-import Chatbot from './components/Chatbot';
 
-export default function App() {
+export const Projects = () => {
+  const projects = [
+    {
+      title: 'Project One',
+      link: 'https://projectone.example.com',
+      github: 'https://github.com/user/projectone',
+      description: 'Description for project one.',
+    },
+    {
+      title: 'Project Two',
+      link: 'https://projecttwo.example.com',
+      github: 'https://github.com/user/projecttwo',
+      description: 'Description for project two.',
+    },
+  ];
+
   return (
-    <div className="font-sans text-gray-800 bg-gradient-to-b from-white to-gray-100">
-      <main className="max-w-5xl mx-auto px-6 pt-12 pb-32">
-        <About />
-        <Projects />
-        <Contact />
-      </main>
-      <Chatbot />
-    </div>
+    <section id="projects" className="py-12">
+      <h2 className="text-3xl font-bold mb-8">Projects</h2>
+      <div className="grid gap-8">
+        {projects.map((project) => (
+          <div key={project.title} className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-2">
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent hover:underline transition duration-300"
+              >
+                {project.title}
+              </a>
+            </h3>
+            <p className="text-gray-300">{project.description}</p>
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 text-sm text-blue-300 hover:text-white transition duration-300 underline underline-offset-4 decoration-dotted"
+            >
+              View on GitHub →
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
   );
-}
+};
