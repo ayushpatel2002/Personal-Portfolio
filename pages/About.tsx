@@ -1,14 +1,21 @@
-import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from '@react-spring/web';
 
-export const About = () => (
-  <motion.section
-    id="about"
-    className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
+export const About = () => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const slideIn = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0px)' : 'translateY(20px)',
+    config: { mass: 1.2, tension: 100, friction: 18 },
+  });
+
+  return (
+    <animated.section
+      ref={ref}
+      style={slideIn}
+      id="about"
+      className="mb-16 p-8 bg-white/90 rounded-2xl shadow-lg"
+    >
     <div className="flex flex-col md:flex-row items-center gap-8">
       {/* Avatar or Animation */}
       <img
@@ -60,5 +67,6 @@ export const About = () => (
         </div>
       </div>
     </div>
-  </motion.section>
-);
+    </animated.section>
+  );
+};
