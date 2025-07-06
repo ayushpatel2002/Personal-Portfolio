@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
@@ -26,12 +26,6 @@ export default function Chatbot() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  const springStyle = useSpring({
-    from: { transform: 'translateX(100%)' },
-    to: { transform: isOpen ? 'translateX(0%)' : 'translateX(100%)' },
-    config: { tension: 250, friction: 25 },
-  });
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,8 +71,6 @@ export default function Chatbot() {
     }
   };
 
-  const MotionDiv = animated.div;
-
   return (
     <>
       <style>
@@ -91,7 +83,7 @@ export default function Chatbot() {
           .dot-flash {
             width: 8px;
             height: 8px;
-            background-color: #4b5563;
+            background-color: #d1d5db;
             border-radius: 9999px;
             animation: flash 1s infinite;
             margin-right: 4px;
@@ -106,91 +98,96 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none"
+        className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none hover:bg-blue-500"
         onClick={() => setIsOpen(true)}
       >
         Chat
       </button>
 
-      {isOpen && (
-        <MotionDiv
-          style={springStyle}
-          className="fixed top-0 right-0 w-full max-w-md h-screen bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
-        >
-          <div className="p-4 border-b flex justify-between items-center">
-            <div>
-              <h2 className="text-lg font-semibold text-indigo-700">Ask about Ayush Patel</h2>
-              <p className="text-xs text-gray-500">💡 Powered by AI (Mistral via OpenRouter)</p>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-gray-500 hover:text-gray-700 text-xl"
-            >
-              ×
-            </button>
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-2">
-            {messages.slice(1).map((msg, idx) => (
-              <div
-                key={idx}
-                className={`p-3 rounded-md shadow text-sm whitespace-pre-wrap ${
-                  msg.role === 'user' ? 'bg-blue-100/80 text-right' : 'bg-gray-100/80 text-left'
-                }`}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 right-0 w-full max-w-md h-screen bg-gray-900 border-l border-gray-700 shadow-2xl z-50 flex flex-col"
+          >
+            <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+              <div>
+                <h2 className="text-lg font-semibold text-indigo-300">Ask about Ayush Patel</h2>
+                <p className="text-xs text-gray-300">💡 Powered by AI (Mistral via OpenRouter)</p>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-300 hover:text-gray-100 text-xl"
               >
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
-              </div>
-            ))}
-
-            {isLoading && (
-              <div className="p-3 rounded-md bg-gray-100/80 shadow text-left text-sm text-gray-600 flex items-center">
-                <span className="dot-flash" />
-                <span className="dot-flash" />
-                <span className="dot-flash" />
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Suggested Prompts */}
-          <div className="px-4 py-2 border-t bg-gray-50">
-            <p className="text-xs text-gray-500 mb-1">Try asking:</p>
-            <div className="flex flex-wrap gap-2">
-              {suggestedPrompts.map((prompt, i) => (
-                <button
-                  key={i}
-                  onClick={() => sendMessage(prompt)}
-                  className="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition"
-                >
-                  {prompt}
-                </button>
-              ))}
+                ×
+              </button>
             </div>
-          </div>
 
-          {/* Input */}
-          <div className="p-4 border-t bg-white flex gap-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              placeholder="Ask a question..."
-              className="flex-1 border px-3 py-2 rounded text-sm"
-              disabled={isLoading}
-            />
-            <button
-              onClick={() => sendMessage()}
-              disabled={isLoading || !input.trim()}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 text-sm"
-            >
-              {isLoading ? '...' : 'Send'}
-            </button>
-          </div>
-        </MotionDiv>
-      )}
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+              {messages.slice(1).map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`p-3 rounded-md shadow text-sm whitespace-pre-wrap ${
+                    msg.role === 'user' ? 'bg-blue-600/80 text-right text-white' : 'bg-gray-800/80 text-left text-gray-300'
+                  }`}
+                >
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className="p-3 rounded-md bg-gray-800/80 shadow text-left text-sm text-gray-300 flex items-center">
+                  <span className="dot-flash" />
+                  <span className="dot-flash" />
+                  <span className="dot-flash" />
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Suggested Prompts */}
+            <div className="px-4 py-2 border-t border-gray-700 bg-gray-700">
+              <p className="text-xs text-gray-300 mb-1">Try asking:</p>
+              <div className="flex flex-wrap gap-2">
+                {suggestedPrompts.map((prompt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => sendMessage(prompt)}
+                    className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Input */}
+            <div className="p-4 border-t border-gray-700 bg-gray-900 flex gap-2">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                placeholder="Ask a question..."
+                className="flex-1 border border-gray-600 bg-gray-800 text-gray-200 px-3 py-2 rounded text-sm"
+                disabled={isLoading}
+              />
+              <button
+                onClick={() => sendMessage()}
+                disabled={isLoading || !input.trim()}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50 text-sm"
+              >
+                {isLoading ? '...' : 'Send'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
