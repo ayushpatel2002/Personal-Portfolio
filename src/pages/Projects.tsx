@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from '@react-spring/web';
 
 const projectData = [
   {
@@ -38,29 +39,29 @@ const projectData = [
   },
 ];
 
-export const Projects = () => (
-  <motion.section
-    id="projects"
-    className="relative mb-16 p-8 bg-[#1e1e2f]/90 text-gray-100 rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
-    initial={{ opacity: 0, y: 60 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-  >
+export const Projects = () => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const slideIn = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0px)' : 'translateY(60px)',
+    config: { mass: 1.2, tension: 120, friction: 20 },
+  });
+
+  return (
+    <animated.section
+      ref={ref}
+      style={slideIn}
+      id="projects"
+      className="relative mb-16 p-8 bg-[#1e1e2f]/90 text-gray-100 rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
+    >
     <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
       Featured Projects
     </h2>
     <div className="grid gap-6 md:grid-cols-2">
       {projectData.map((project, idx) => (
-        <motion.div
+        <div
           key={idx}
-          whileHover={{
-            scale: 1.03,
-            y: -8,
-            boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.25)',
-            transition: { type: 'spring', stiffness: 300, damping: 20 }
-          }}
-          className="bg-[#2a2a3d] border border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-2xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40"
+          className="bg-[#2a2a3d] border border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-2xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.03]"
         >
           <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
           <p className="text-gray-300 text-sm mb-3">{project.description}</p>
@@ -84,9 +85,10 @@ export const Projects = () => (
               View on GitHub →
             </a>
           )}
-        </motion.div>
+        </div>
       ))}
     </div>
     <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-10 blur-[180px] rounded-full -z-10" />
-  </motion.section>
-);
+    </animated.section>
+  );
+};
