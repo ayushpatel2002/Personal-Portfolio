@@ -1,8 +1,8 @@
 """Dataset ingestion script for portfolio RAG pipeline.
 
-This script loads entries from ``Data/PersonalPortfolioDataset.json``,
+This script loads entries from ``backend/Data/PersonalPortfolioDataset.json``,
 splits them into chunks, generates embeddings using ``sentence-transformers``
-and stores them in a local Chroma vector store under ``./vectorstore``.
+and stores them in a local Chroma vector store under ``backend/vectorstore``.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent / "backend"
 DATA_PATH = BASE_DIR / "Data" / "PersonalPortfolioDataset.json"
 VECTOR_DIR = BASE_DIR / "vectorstore"
 
