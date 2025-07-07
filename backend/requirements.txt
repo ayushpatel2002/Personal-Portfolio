@@ -5,3 +5,4 @@ openrouter
 fastapi
 uvicorn
 requests
+langchain-community
