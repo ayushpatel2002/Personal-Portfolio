@@ -9,6 +9,8 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       host: true,
+    },
+    preview: {
       allowedHosts: ['personal-portfolio-production-b064.up.railway.app'],
     },
     define: {
