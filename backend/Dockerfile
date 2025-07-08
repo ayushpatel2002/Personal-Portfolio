@@ -7,9 +7,9 @@ WORKDIR /app
 # Copy all backend files into the container
 COPY . .
 
-# # Install Python dependencies
-# RUN pip install --upgrade pip && \
-#     pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 # Expose FastAPI port
 EXPOSE 8080

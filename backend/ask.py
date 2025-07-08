@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from query import query_index  # this is your RAG logic
+
+load_dotenv()
 
 app = FastAPI()
 
