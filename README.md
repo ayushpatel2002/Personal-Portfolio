@@ -16,6 +16,10 @@ This repository includes a lightweight retrieval-augmented generation (RAG) pipe
    ```bash
    echo "OPENROUTER_API_KEY=sk-..." > .env
    ```
+4. (Optional) specify the backend URL used by the React app:
+   ```bash
+   echo "VITE_BACKEND_URL=http://localhost:8080" >> .env
+   ```
 
 ## Ingestion
 Run the ingestion script to build the local vector store:

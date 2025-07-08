@@ -68,7 +68,8 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/ask', {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+      const response = await fetch(`${backendUrl}/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
