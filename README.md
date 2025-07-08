@@ -22,7 +22,7 @@ Run the ingestion script to build the local vector store:
 ```bash
 python ingest.py
 ```
-This reads `Data/PersonalPortfolioDataset.json`, splits it into chunks, generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`, and stores them in `vectorstore/`.
+This reads `backend/Data/PersonalPortfolioDataset.json`, splits it into chunks, generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`, and stores them in `backend/vectorstore/`.
 
 ## Querying
 After ingestion, ask questions using the CLI:
