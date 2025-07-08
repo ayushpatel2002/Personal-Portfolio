@@ -67,8 +67,10 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/ask`, {
+      const response = await fetch(`${backendUrl}/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,15 +84,21 @@ export default function Chatbot() {
       if (!response.ok || !reply) {
         setMessages([
           ...updatedMessages,
-          { role: 'assistant', content: '❌ Invalid server response. Please try again later.' },
+          {
+            role: 'assistant',
+            content: `❌ Server error (${response.status}). Please try again later.`,
+          },
         ]);
       } else {
         setMessages([...updatedMessages, { role: 'assistant', content: reply }]);
       }
-    } catch {
+    } catch (error: any) {
       setMessages([
         ...updatedMessages,
-        { role: 'assistant', content: '❌ Something went wrong. Please try again.' },
+        {
+          role: 'assistant',
+          content: `❌ Failed to connect to server. ${error?.message || 'Please try again.'}`,
+        },
       ]);
     } finally {
       setIsLoading(false);
