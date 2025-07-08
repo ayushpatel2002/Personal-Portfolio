@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: 3000,
+      host: true,
+      allowedHosts: ['personal-portfolio-production-b064.up.railway.app'],
     },
     define: {
       'process.env.OPENROUTER_API_KEY': JSON.stringify(env.OPENROUTER_API_KEY),
