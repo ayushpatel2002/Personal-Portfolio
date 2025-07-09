@@ -18,7 +18,7 @@ This repository includes a lightweight retrieval-augmented generation (RAG) pipe
    ```
 4. (Optional) specify the backend URL used by the React app:
    ```bash
-   echo "VITE_BACKEND_URL=http://localhost:8080" >> .env
+   echo "VITE_BACKEND_URL=https://personal-portfolio-production-b064.up.railway.app" >> .env
    ```
 
 ## Ingestion
