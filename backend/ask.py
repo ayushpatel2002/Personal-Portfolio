@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
-from backend.query import query_index
+from query import query_index
   # this is your RAG logic
 
 load_dotenv()
