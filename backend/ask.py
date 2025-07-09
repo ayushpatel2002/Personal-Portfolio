@@ -8,10 +8,13 @@ load_dotenv()
 
 app = FastAPI()
 
-# Allow frontend requests (dev only; restrict later in prod)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://personal-portfolio-ten-teal.vercel.app"
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
