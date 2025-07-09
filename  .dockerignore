@@ -1,0 +1,31 @@
+# Python virtual environments
+.venv/
+mistral-env/
+
+# Bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS metadata
+.DS_Store
+
+# Jupyter & notebooks
+*.ipynb
+
+# Model and vector stores (if you're testing locally)
+models/
+vectorstore/
+*.bin
+*.jsonl
+*.pkl
+
+# Environment and config files
+.env
+.env.local
+
+# Git & logs
+.git/
+.gitignore
+*.log
