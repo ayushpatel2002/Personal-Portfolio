@@ -1,8 +1,0 @@
-langchain
-chromadb
-sentence-transformers
-openrouter
-fastapi
-uvicorn
-requests
-langchain-community
