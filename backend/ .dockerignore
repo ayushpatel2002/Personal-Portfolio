@@ -29,3 +29,10 @@ vectorstore/
 .git/
 .gitignore
 *.log
+
+__pycache__/
+*.py[cod]
+*.ipynb
+*.env
+mistral-env/
+node_modules/
