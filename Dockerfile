@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose port
 EXPOSE 8080
 
-ENV PYTHONPATH=/app/backend
+ENV PYTHONPATH=/app
 
 # Run FastAPI with Uvicorn
 # Run FastAPI with Uvicorn
