@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from query import query_index  # this is your RAG logic
+# from query import query_index  # this is your RAG logic
 
 load_dotenv()
 
@@ -17,7 +17,12 @@ app.add_middleware(
 
 @app.post("/ask")
 async def ask(request: Request):
-    body = await request.json()
-    question = body.get("question", "")
-    print("✅ Received question:", question)
-    return {"answer": f"You asked: {question}"}
+    print("⚡ /ask endpoint was called")
+    try:
+        body = await request.json()
+        question = body.get("question", "")
+        print("✅ Question received:", question)
+        return {"answer": f"You asked: {question}"}
+    except Exception as e:
+        print("❌ Error in /ask:", e)
+        return {"answer": "Something went wrong"}
