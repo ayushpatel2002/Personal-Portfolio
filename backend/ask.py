@@ -19,7 +19,12 @@ app.add_middleware(
 async def ask(request: Request):
     body = await request.json()
     question = body.get("question", "")
+    print("✅ Received question:", question)
     if not question:
         return {"answer": "No question provided."}
-    answer = query_index(question)
-    return {"answer": answer}
+    try:
+        answer = query_index(question)
+        return {"answer": answer}
+    except Exception as e:
+        print("❌ Error during query_index:", str(e))
+        return {"answer": "An error occurred while processing the question."}
