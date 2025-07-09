@@ -67,7 +67,9 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+    const backendUrl =
+      import.meta.env.VITE_BACKEND_URL ||
+      'https://personal-portfolio-production-b064.up.railway.app';
 
     try {
       const response = await fetch(`${backendUrl}/ask`, {
