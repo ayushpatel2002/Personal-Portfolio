@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies first (cache efficient)
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
 
 # Then copy the rest
 COPY backend/ ./backend/
