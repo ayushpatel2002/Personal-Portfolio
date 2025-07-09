@@ -72,6 +72,7 @@ export default function Chatbot() {
       'https://personal-portfolio-production-b064.up.railway.app';
 
     try {
+      console.log("📡 Sending to:", `${backendUrl}/ask`);
       const response = await fetch(`${backendUrl}/ask`, {
         method: 'POST',
         headers: {
