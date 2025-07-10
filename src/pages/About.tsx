@@ -2,6 +2,28 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 
+interface AnimatedCounterProps {
+  to: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}
+
+function AnimatedCounter({ to, suffix = '', duration = 2000, className = '' }: AnimatedCounterProps) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const step = (timestamp: number) => {
+      const progress = Math.min(timestamp / duration, 1);
+      setCount(Math.floor(progress * to));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }, [to, duration]);
+  return <p className={className}>{count}{suffix}</p>;
+}
+
 export const About = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const slideIn = useSpring({
@@ -37,6 +59,23 @@ export const About = () => {
             <li>Power BI dashboards for education equity</li>
           </ul>
         </div>
+      </div>
+      <div className="relative flex flex-col items-center justify-center my-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-gray-300 text-center z-10 relative">
+          <div>
+            <AnimatedCounter to={5} suffix="+" className="text-purple-400 font-semibold text-xl" />
+            <p>Major Data Projects</p>
+          </div>
+          <div>
+            <AnimatedCounter to={2} className="text-purple-400 font-semibold text-xl" />
+            <p>Industries Served</p>
+          </div>
+          <div>
+            <AnimatedCounter to={100} suffix="%" duration={2500} className="text-purple-400 font-semibold text-xl" />
+            <p>Learning & Building</p>
+          </div>
+        </div>
+        <div className="absolute -bottom-10 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500 to-fuchsia-500 opacity-10 blur-[160px] rounded-full z-0 pointer-events-none animate-pulse" />
       </div>
       <div className="mt-10 relative p-6 bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-600 border border-indigo-400 rounded-xl text-center shadow-xl">
         <p className="text-white font-semibold text-lg animate-pulse">
