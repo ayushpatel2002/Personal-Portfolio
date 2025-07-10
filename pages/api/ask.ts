@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 // pages/api/ask.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
