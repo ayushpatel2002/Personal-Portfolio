@@ -67,9 +67,7 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
-    const backendUrl =
-      import.meta.env.VITE_BACKEND_URL ||
-      'https://personal-portfolio-production-b064.up.railway.app';
+    const backendUrl = '/api';
 
     try {
       console.log("📡 Sending to:", `${backendUrl}/ask`);
