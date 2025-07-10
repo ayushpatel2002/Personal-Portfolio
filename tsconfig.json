@@ -5,8 +5,28 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "types": ["vite/client", "node"]
+    "jsx": "preserve",
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": ["src", "api"]
+  "include": [
+    "src",
+    "api"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
