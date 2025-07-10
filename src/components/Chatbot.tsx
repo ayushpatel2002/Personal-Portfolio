@@ -67,7 +67,7 @@ export default function Chatbot() {
     setInput('');
     setIsLoading(true);
 
-    const backendUrl = '/api';
+    const backendUrl = 'https://personal-portfolio-ten-teal.vercel.app/api';
 
     try {
       console.log("📡 Sending to:", `${backendUrl}/ask`);
