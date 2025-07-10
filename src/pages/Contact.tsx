@@ -16,7 +16,7 @@ export const Contact = () => {
       className="relative p-8 bg-[#1A1A2E]/90 text-[#EAEAEA] rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
       id="contact"
     >
-    <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
+    <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
       Let’s Connect
     </h2>
     <p className="mb-2">

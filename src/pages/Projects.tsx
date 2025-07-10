@@ -54,7 +54,7 @@ export const Projects = () => {
       id="projects"
       className="relative mb-16 p-8 bg-[#1e1e2f]/90 text-gray-100 rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
     >
-    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
+    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
       Featured Projects
     </h2>
     <div className="grid gap-6 md:grid-cols-2">

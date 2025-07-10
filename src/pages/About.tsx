@@ -16,7 +16,7 @@ export const About = () => {
       id="about"
       style={slideIn}
     >
-      <h1 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
+      <h1 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
         Everything Ayush Patel — Ideas, Insights & Impact.
       </h1>
       <p className="text-lg leading-relaxed text-zinc-300">

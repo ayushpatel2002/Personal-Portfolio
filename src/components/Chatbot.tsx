@@ -46,7 +46,7 @@ export default function Chatbot() {
         ...prev,
         {
           role: 'assistant',
-          content: "👋 Hi! I'm AyushBot — your AI guide to Ayush Patel’s portfolio. Ask me about his projects, skills, or experience!",
+          content: "👋 Hi! I'm Bimb — your AI guide to Ayush Patel’s portfolio. Ask me about his projects, skills, or experience!",
         },
       ]);
     }
@@ -133,12 +133,12 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-110 hover:shadow-2xl transition-transform duration-300 group"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-110 hover:shadow-2xl transition-transform duration-300 group"
         onClick={() => setIsOpen(true)}
       >
         <span className="text-sm font-semibold flex items-center space-x-1">
           🤖
-          <span className="group-hover:animate-pulse">Ask AyushBot</span>
+          <span className="group-hover:animate-pulse">Ask Bimb</span>
         </span>
         <span className="bg-white text-purple-700 text-xs font-bold px-2 py-1 rounded shadow-md">AI</span>
         <span className="w-2 h-2 rounded-full bg-green-400 animate-ping ml-1"></span>
@@ -147,11 +147,11 @@ export default function Chatbot() {
       {isOpen && (
         <animated.div
           style={slideIn}
-          className="fixed top-0 right-0 w-full max-w-md h-screen bg-gray-900 border-l border-gray-700 shadow-2xl z-50 flex flex-col"
+          className="fixed top-0 right-0 w-full sm:max-w-md h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-gradient border-l border-gray-700 shadow-2xl z-50 flex flex-col"
         >
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
               <div>
-                <h2 className="text-lg font-semibold text-indigo-300">👋 I’m AyushBot</h2>
+                <h2 className="text-lg font-semibold text-indigo-300">👋 I’m Bimb</h2>
                 <p className="text-xs text-gray-300">Ask me anything about Ayush’s projects, skills, or experience – Powered by AI, trained on his real portfolio.</p>
               </div>
               <button
