@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/ask",
+      "source": "/api/ask",
       "destination": "http://16.176.171.21:8080/ask"
     }
   ]
