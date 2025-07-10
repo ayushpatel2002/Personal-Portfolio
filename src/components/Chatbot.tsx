@@ -137,7 +137,7 @@ export default function Chatbot() {
         onClick={() => setIsOpen(true)}
       >
         <span className="text-sm font-semibold flex items-center space-x-1">
-          <img src="Public/AR Logo.png" alt="AyushAI Logo" className="w-5 h-5 rounded" />
+          {/* <img src="Public/AR Logo.png" alt="AyushAI Logo" className="w-5 h-5 rounded" /> */}
           <span className="group-hover:animate-pulse">Ask Bimb</span>
         </span>
         <span className="bg-white text-purple-700 text-xs font-bold px-2 py-1 rounded shadow-md">AI</span>
