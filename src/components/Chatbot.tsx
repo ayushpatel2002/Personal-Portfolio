@@ -132,7 +132,7 @@ export default function Chatbot() {
           className="fixed bottom-6 right-6 z-50 rounded-full p-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 shadow-xl ring-2 ring-purple-400 hover:scale-110 transition-transform duration-300 ease-in-out animate-pulse"
           onClick={() => setIsOpen(true)}
         >
-          <img src="/Logo.png" alt="Open chat" className="w-6 h-6" />
+          <img src="/Public/Logo.png" alt="Open chat" className="w-6 h-6" />
         </button>
       )}
 
@@ -141,7 +141,7 @@ export default function Chatbot() {
       >
             <div className="p-4 border-b border-gray-700 flex justify-between items-center rounded-t-3xl sm:rounded-none">
               <div className="flex items-center gap-2">
-                <img src="/Logo.png" alt="Bimb Logo" className="w-6 h-6" />
+                <img src="/Public/Logo.png" alt="Bimb Logo" className="w-6 h-6" />
                 <h2 className="text-lg font-semibold text-indigo-300">I’m Bimb</h2>
               </div>
               <p className="text-xs text-gray-300 flex-1 ml-2">Ask me anything about Ayush’s projects, skills, or experience – Powered by AI, trained on his real portfolio.</p>

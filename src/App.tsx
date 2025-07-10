@@ -21,7 +21,6 @@ export default function App() {
         <div className="absolute top-[25%] left-[60%] w-96 h-96 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-10 animate-pulse -z-10" />
         <About />
         <Projects />
-        {/* Stats moved to profile section */}
         <Contact />
       </main>
       <Chatbot />
