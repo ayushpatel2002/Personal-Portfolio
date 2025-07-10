@@ -1,5 +1,4 @@
 fastapi
 uvicorn
 openrouter
-langchain
 sentence-transformers

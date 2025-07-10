@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies first (cache efficient)
-COPY requirements.txt requirements.txt
+# Copy requirements from root and install dependencies
+COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Then copy the rest
