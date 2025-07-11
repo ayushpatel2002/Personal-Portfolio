@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSpring, animated } from '@react-spring/web';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
@@ -52,10 +51,6 @@ export default function Chatbot() {
     }
   }, [isOpen]);
 
-  const slideIn = useSpring({
-    from: { transform: 'translateX(100%)' },
-    to: { transform: 'translateX(0%)' },
-  });
 
   const sendMessage = async (promptOverride?: string) => {
     const content = promptOverride || input.trim();
@@ -133,25 +128,22 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-2 hover:scale-110 hover:shadow-2xl transition-transform duration-300 group"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-full shadow-xl flex items-center space-x-2 hover:scale-110 transition-transform duration-300 ring-2 ring-purple-400 animate-pulse"
         onClick={() => setIsOpen(true)}
       >
-        <span className="text-sm font-semibold flex items-center space-x-1">
-          {/* <img src="Public/AR Logo.png" alt="AyushAI Logo" className="w-5 h-5 rounded" /> */}
-          <span className="group-hover:animate-pulse">Ask Bimb</span>
-        </span>
-        <span className="bg-white text-purple-700 text-xs font-bold px-2 py-1 rounded shadow-md">AI</span>
-        <span className="w-2 h-2 rounded-full bg-green-400 animate-ping ml-1"></span>
+        <img src="/Public/Logo.png" alt="Logo" className="w-5 h-5 rounded-full" />
+        <span className="text-sm font-semibold">Ask Bimb</span>
       </button>
 
-      {isOpen && (
-        <animated.div
-          style={slideIn}
-          className="fixed top-0 right-0 w-full max-w-md h-screen bg-gray-900 border-l border-gray-700 shadow-2xl z-50 flex flex-col"
-        >
+      <div
+        className={`fixed top-0 right-0 w-full sm:max-w-md h-[50vh] sm:h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black border-l border-gray-700 shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
+      >
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
               <div>
-                <h2 className="text-lg font-semibold text-indigo-300">👋 I’m Bimb</h2>
+                <h2 className="text-lg font-semibold text-indigo-300 flex items-center gap-2">
+                  <img src="/Public/Logo.png" alt="Logo" className="w-6 h-6 rounded-full" />
+                  👋 I’m Bimb
+                </h2>
                 <p className="text-xs text-gray-300">Ask me anything about Ayush’s projects, skills, or experience – Powered by AI, trained on his real portfolio.</p>
               </div>
               <button
@@ -163,7 +155,7 @@ export default function Chatbot() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            <div className="flex-1 overflow-y-auto p-4 space-y-2 pb-24">
               {messages.slice(1).map((msg, idx) => (
                 <div
                   key={idx}
@@ -203,7 +195,7 @@ export default function Chatbot() {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-700 bg-gray-900 flex gap-2">
+            <div className="sticky bottom-0 p-4 border-t border-gray-700 bg-gray-900/80 backdrop-blur flex gap-2">
               <input
                 type="text"
                 value={input}
@@ -221,8 +213,7 @@ export default function Chatbot() {
                 {isLoading ? '...' : 'Send'}
               </button>
             </div>
-        </animated.div>
-      )}
+      </div>
     </>
   );
 }
