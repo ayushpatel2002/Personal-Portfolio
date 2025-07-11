@@ -45,12 +45,38 @@ export default function Chatbot() {
         ...prev,
         {
           role: 'assistant',
-          content: "👋 Hi! I'm Bimb — your AI guide to Ayush Patel’s portfolio. Ask me about his projects, skills, or experience!",
+          content: "⚡ Your AI-powered assistant — trained on Ayush’s real work to give sharp, instant insights.",
         },
       ]);
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    const body = document.body;
+
+    if (isOpen) {
+      if (window.innerWidth < 768) {
+        // Only disable scroll on small screens
+        body.style.overflow = 'hidden';
+      } else {
+        body.style.overflow = '';
+      }
+    } else {
+      body.style.overflow = '';
+    }
+
+    return () => {
+      body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleOpenChatbot = () => setIsOpen(true);
+    window.addEventListener('open-chatbot', handleOpenChatbot);
+    return () => {
+      window.removeEventListener('open-chatbot', handleOpenChatbot);
+    };
+  }, []);
 
   const sendMessage = async (promptOverride?: string) => {
     const content = promptOverride || input.trim();
@@ -124,27 +150,40 @@ export default function Chatbot() {
           .dot-flash:nth-child(3) {
             animation-delay: 0.4s;
           }
+          .animate-spin-slow {
+            animation: spin 2s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
         `}
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-5 py-3 rounded-full shadow-xl flex items-center space-x-2 hover:scale-110 transition-transform duration-300 ring-2 ring-purple-400 animate-pulse"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 hover:scale-110 transition-transform duration-300 ring-2 ring-purple-400 animate-pulse"
         onClick={() => setIsOpen(true)}
       >
-        <img src="/Public/Logo.png" alt="Logo" className="w-5 h-5 rounded-full" />
-        <span className="text-sm font-semibold">Ask Bimb</span>
+        <img
+          src="/Public/Animated Logo DB.svg"
+          alt="Logo"
+          className="w-7 h-7 rounded-full animate-spin-slow ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
+        />
+        <span className="text-sm font-semibold flex items-center gap-1">
+          Ask Bimb
+          <span className="text-[10px] w-4 h-4 flex items-center justify-center bg-indigo-200 text-indigo-800 rounded font-bold">AI</span>
+        </span>
       </button>
 
       <div
-        className={`fixed top-0 right-0 w-full sm:max-w-md h-[50vh] sm:h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black border-l border-gray-700 shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
+        className={`fixed top-0 right-0 w-full sm:max-w-md h-screen bg-gradient-to-b from-[#141E30] to-[#243B55] border-l border-[#475569] shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
       >
-            <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+            <div className="p-4 border-b border-[#475569] bg-[#1e293b]/90 flex justify-between items-center">
               <div>
                 <h2 className="text-lg font-semibold text-indigo-300 flex items-center gap-2">
-                  <img src="/Public/Logo.png" alt="Logo" className="w-6 h-6 rounded-full" />
                   👋 I’m Bimb
                 </h2>
-                <p className="text-xs text-gray-300">Ask me anything about Ayush’s projects, skills, or experience – Powered by AI, trained on his real portfolio.</p>
+                <p className="text-xs text-gray-300">🤖 Ask me anything about Ayush’s projects, skills, or experience — Powered by AI, trained on his real portfolio.</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -160,7 +199,7 @@ export default function Chatbot() {
                 <div
                   key={idx}
                   className={`p-3 rounded-md shadow text-sm whitespace-pre-wrap ${
-                    msg.role === 'user' ? 'bg-blue-600/80 text-right text-white' : 'bg-gray-800/80 text-left text-gray-300'
+                    msg.role === 'user' ? 'bg-blue-600/80 text-right text-white' : 'bg-[#1e293b]/80 text-left text-gray-300'
                   }`}
                 >
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -168,10 +207,13 @@ export default function Chatbot() {
               ))}
 
               {isLoading && (
-                <div className="p-3 rounded-md bg-gray-800/80 shadow text-left text-sm text-gray-300 flex items-center">
-                  <span className="dot-flash" />
-                  <span className="dot-flash" />
-                  <span className="dot-flash" />
+                <div className="p-3 rounded-md bg-[#1e293b]/80 shadow text-left text-sm text-gray-300 flex items-center">
+                  <img
+                    src="/Public/Animated Logo DB.svg"
+                    alt="Loading"
+                    className="w-5 h-5 animate-spin-slow"
+                  />
+                  <span className="ml-2">Thinking...</span>
                 </div>
               )}
 
@@ -179,7 +221,7 @@ export default function Chatbot() {
             </div>
 
             {/* Suggested Prompts */}
-            <div className="px-4 py-2 border-t border-gray-700 bg-gray-700">
+            <div className="px-4 py-2 border-t border-[#475569] bg-[#334155]">
               <p className="text-xs text-gray-300 mb-1">Try asking:</p>
               <div className="flex flex-wrap gap-2">
                 {suggestedPrompts.map((prompt, i) => (
@@ -195,7 +237,7 @@ export default function Chatbot() {
             </div>
 
             {/* Input */}
-            <div className="sticky bottom-0 p-4 border-t border-gray-700 bg-gray-900/80 backdrop-blur flex gap-2">
+            <div className="sticky bottom-0 p-4 border-t border-[#475569] bg-[#0f172a]/80 backdrop-blur flex gap-2">
               <input
                 type="text"
                 value={input}

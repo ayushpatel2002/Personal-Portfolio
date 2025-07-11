@@ -13,7 +13,7 @@ export const Contact = () => {
     <animated.section
       ref={ref}
       style={slideIn}
-      className="relative p-8 bg-[#1A1A2E]/90 text-[#EAEAEA] rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
+      className="relative p-8 bg-gradient-to-br from-[#1c1c2d] via-[#2c2c44] to-[#3c3c5c] text-white rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
       id="contact"
     >
     <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
@@ -50,7 +50,7 @@ export const Contact = () => {
         GitHub
       </a>
     </p>
-    <div className="absolute -top-10 -right-10 w-80 h-80 bg-gradient-to-br from-blue-500 to-fuchsia-500 opacity-10 blur-3xl rounded-full -z-10 animate-pulse" />
+    <div className="absolute -top-10 -right-10 w-80 h-80 bg-gradient-to-br from-blue-500 to-fuchsia-500 opacity-20 blur-[160px] rounded-full -z-10 animate-pulse" />
     </animated.section>
   );
 };

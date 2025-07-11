@@ -12,10 +12,11 @@ export const About = () => {
 
   return (
     <animated.section ref={ref}
-      className="mb-16 p-8 bg-zinc-900 text-white rounded-2xl shadow-lg border border-purple-900/30 relative overflow-hidden"
+      className="mb-16 p-8 bg-gradient-to-br from-[#1c1c2d] via-[#2c2c44] to-[#3c3c5c] text-white rounded-2xl shadow-lg border border-purple-900/30 relative overflow-hidden"
       id="about"
       style={slideIn}
     >
+      <div className="absolute -top-20 -left-20 w-[600px] h-[600px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-20 blur-[160px] rounded-full -z-10" />
       <h1 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
         Everything Ayush Patel — Ideas, Insights & Impact.
       </h1>
@@ -23,14 +24,14 @@ export const About = () => {
         I explore patterns behind the noise — blending data science, storytelling, and strategy to shape decisions that matter. From education equity dashboards to AI-powered experiments, my work is grounded in impact. Dive into forecasting, fraud detection, NLP, and more — it’s all open and alive on my GitHub.
       </p>
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="bg-zinc-800 p-6 rounded-xl shadow-md">
-          <h2 className="text-xl font-bold text-indigo-800 dark:text-indigo-300 mb-2">Current Role</h2>
+        <div className="bg-gradient-to-br from-[#292946] to-[#1e1e2f] p-6 rounded-xl shadow-md border border-purple-900/40">
+          <h2 className="text-xl font-bold text-violet-300 mb-2">Current Role</h2>
           <p className="text-zinc-700 dark:text-zinc-300 text-sm">
             Data Analyst @ NT Department of Education — building dashboards, uncovering equity trends, and enabling informed decisions across education sectors.
           </p>
         </div>
-        <div className="bg-zinc-800 p-6 rounded-xl shadow-md">
-          <h2 className="text-xl font-bold text-indigo-800 dark:text-indigo-300 mb-2">Latest Projects</h2>
+        <div className="bg-gradient-to-br from-[#292946] to-[#1e1e2f] p-6 rounded-xl shadow-md border border-purple-900/40">
+          <h2 className="text-xl font-bold text-violet-300 mb-2">Latest Projects</h2>
           <ul className="list-disc pl-5 text-zinc-700 dark:text-zinc-300 text-sm space-y-1">
             <li>Forecasting school costs with Prophet</li>
             <li>LLM-powered chatbot using RAG</li>
@@ -38,13 +39,30 @@ export const About = () => {
           </ul>
         </div>
       </div>
-      <div className="mt-10 relative p-6 bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-600 border border-indigo-400 rounded-xl text-center shadow-xl">
-        <p className="text-white font-semibold text-lg animate-pulse">
+      <div
+        onClick={() => window.dispatchEvent(new CustomEvent("open-chatbot"))}
+        className="cursor-pointer mt-6 relative p-6 bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-600 border border-indigo-400 rounded-xl text-center shadow-xl"
+      >
+        <p className="text-white font-semibold text-lg animate-[pulse_3.5s_ease-in-out_infinite]">
           💬 Explore my work interactively — use the <span className="font-bold underline underline-offset-4 decoration-pink-400">AI-powered chatbot</span> trained on my own projects!
         </p>
         <div className="absolute inset-0 rounded-xl ring-2 ring-purple-500/50 animate-ping"></div>
       </div>
-      <div className="absolute -top-20 -left-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-10 blur-[180px] rounded-full -z-10" />
+      {/* Stats section (kept inside animated.section) */}
+      <div className="mt-10 flex justify-around text-center text-white">
+        <div>
+          <p className="text-2xl font-extrabold text-purple-400 transition duration-300 ease-in-out hover:scale-105">5+</p>
+          <p className="text-sm text-zinc-300">Major Data Projects</p>
+        </div>
+        <div>
+          <p className="text-2xl font-extrabold text-purple-400 transition duration-300 ease-in-out hover:scale-105">2</p>
+          <p className="text-sm text-zinc-300">Industries Served</p>
+        </div>
+        <div>
+          <p className="text-2xl font-extrabold text-purple-400 transition duration-300 ease-in-out hover:scale-105">100%</p>
+          <p className="text-sm text-zinc-300">Learning & Building</p>
+        </div>
+      </div>
     </animated.section>
   );
 };

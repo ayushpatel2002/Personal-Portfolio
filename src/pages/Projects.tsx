@@ -52,7 +52,7 @@ export const Projects = () => {
       ref={ref}
       style={slideIn}
       id="projects"
-      className="relative mb-16 p-8 bg-[#1e1e2f]/90 text-gray-100 rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
+      className="relative mb-16 p-8 bg-gradient-to-br from-[#1c1c2d] via-[#2c2c44] to-[#3c3c5c] text-white rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
     >
     <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
       Featured Projects
@@ -61,7 +61,7 @@ export const Projects = () => {
       {projectData.map((project, idx) => (
         <div
           key={idx}
-          className="bg-[#2a2a3d] border border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-2xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.03]"
+          className="bg-gradient-to-br from-[#292946] to-[#1e1e2f] border border-purple-900/30 rounded-xl p-6 shadow-md hover:shadow-xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.02]"
         >
           <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
           <p className="text-gray-300 text-sm mb-3">{project.description}</p>
@@ -88,7 +88,7 @@ export const Projects = () => {
         </div>
       ))}
     </div>
-    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-10 blur-[180px] rounded-full -z-10" />
+    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-20 blur-[160px] rounded-full -z-10" />
     </animated.section>
   );
 };
