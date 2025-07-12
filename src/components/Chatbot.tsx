@@ -150,11 +150,11 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 hover:scale-110 transition-transform duration-300 ring-2 ring-purple-400 animate-pulse"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 ring-2 ring-purple-400"
         onClick={() => setIsOpen(true)}
       >
         <svg
-          className="w-7 h-7 rounded-full animate-spin-slow ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
+          className="w-7 h-7 rounded-full ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
           viewBox="0 0 100 100"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -173,7 +173,7 @@ export default function Chatbot() {
       </button>
 
       <div
-        className={`fixed top-0 right-0 w-full sm:max-w-md h-screen bg-gradient-to-b from-[#141E30] to-[#243B55] border-l border-[#475569] shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
+        className={`fixed top-0 right-0 w-full sm:max-w-md h-screen bg-gradient-to-b from-[#141E30] to-[#243B55] border-l border-[#475569] shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out will-change-transform ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
       >
             <div className="p-4 border-b border-[#475569] bg-[#1e293b]/90 flex justify-between items-center">
               <div>
@@ -191,7 +191,15 @@ export default function Chatbot() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-2 pb-24">
+            <style>
+              {`
+                .chat-scroll-area {
+                  will-change: scroll-position;
+                  contain: layout style;
+                }
+              `}
+            </style>
+            <div className="chat-scroll-area flex-1 overflow-y-auto p-4 space-y-2 pb-24">
               {messages.slice(1).map((msg, idx) => (
                 <div
                   key={idx}

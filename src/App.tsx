@@ -56,7 +56,7 @@ export default function App() {
         <div className="animate-float text-sm absolute right-10 top-60 text-blue-400">Power BI</div>
       </div>
       {/* Future enhancement: Add <SideNav /> for scroll tracking */}
-      <div className="animate-pulse hover:animate-none transition duration-300 shadow-[0_0_20px_#a855f7] rounded-lg">
+      <div className="transition duration-300 shadow-[0_0_20px_#a855f7] rounded-lg">
         <Chatbot />
       </div>
     </div>
