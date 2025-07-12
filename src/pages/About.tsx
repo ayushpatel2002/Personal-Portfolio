@@ -10,6 +10,21 @@ export const About = () => {
     config: { mass: 1.2, tension: 100, friction: 18 },
   });
 
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <animated.section ref={ref}
       className="mb-16 p-8 bg-gradient-to-br from-[#1c1c2d] via-[#2c2c44] to-[#3c3c5c] text-white rounded-2xl shadow-lg border border-purple-900/30 relative overflow-hidden"
@@ -63,6 +78,20 @@ export const About = () => {
           <p className="text-sm text-zinc-300">Learning & Building</p>
         </div>
       </div>
+
+      {/* Tech stack ticker */}
+      <h2 className="mt-12 text-sm text-purple-300 font-semibold tracking-wider uppercase text-center">
+        Tools & Skills I Use
+      </h2>
+      <div className="mt-6 overflow-hidden border-y border-purple-900 py-3 px-2">
+        <div className="inline-block whitespace-nowrap text-sm font-mono text-zinc-300 tracking-wide [animation:scroll_70s_linear_infinite] hover:[animation-play-state:paused]">
+          Python • R • SQL • Power BI • Spark • LLMs • Time Series • Forecasting • Feature Engineering • NLP • CI/CD • GitHub • Communication • AWS &nbsp;&nbsp;&nbsp;&nbsp;
+          Python • R • SQL • Power BI • Spark • LLMs • Time Series • Forecasting • Feature Engineering • NLP • CI/CD • GitHub • Communication • AWS
+        </div>
+      </div>
+
+      {/* Data Pulse Effect */}
+      <div className="mt-6 h-[5px] w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 animate-pulse rounded-full shadow-md opacity-50" />
     </animated.section>
   );
 };

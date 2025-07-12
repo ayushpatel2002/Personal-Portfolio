@@ -27,18 +27,22 @@ function AnimatedCounter({ to, suffix = '', duration = 2000, className = '' }: A
   return <p className={className}>{count}{suffix}</p>;
 }
 
+const DataStat = ({ number, label, icon }: { number: number, label: string, icon?: string }) => (
+  <div className="flex flex-col items-center text-center px-4">
+    <span className="text-4xl font-bold">{icon} <AnimatedCounter to={number} /></span>
+    <p className="mt-1 text-sm text-white/80">{label}</p>
+  </div>
+);
+
 export default function App() {
   return (
     <div className="font-sans text-white bg-gradient-to-b from-[#0a0f1c] to-[#1a2238] min-h-screen">
       <main className="relative max-w-6xl mx-auto px-6 py-6 space-y-16 bg-white/5 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden">
         <div className="absolute inset-0 -z-10 opacity-5 pointer-events-none">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
+            <path d="M0 0 L1000 1000" stroke="white" strokeWidth="0.3" strokeDasharray="5,5">
+              <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite" />
+            </path>
           </svg>
         </div>
         <div className="absolute top-[25%] left-[60%] w-96 h-96 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-3xl opacity-10 animate-pulse -z-10" />
@@ -46,7 +50,15 @@ export default function App() {
         <Projects />
         <Contact />
       </main>
-      <Chatbot />
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-20">
+        <div className="animate-float text-sm absolute left-10 top-20 text-purple-400">SQL</div>
+        <div className="animate-float text-sm absolute left-1/2 top-40 text-pink-400">Python</div>
+        <div className="animate-float text-sm absolute right-10 top-60 text-blue-400">Power BI</div>
+      </div>
+      {/* Future enhancement: Add <SideNav /> for scroll tracking */}
+      <div className="animate-pulse hover:animate-none transition duration-300 shadow-[0_0_20px_#a855f7] rounded-lg">
+        <Chatbot />
+      </div>
     </div>
   );
 }

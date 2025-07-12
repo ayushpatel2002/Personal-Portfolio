@@ -7,11 +7,11 @@ interface Message {
 }
 
 const suggestedPrompts = [
+  'What tools do you use for forecasting?',
   'Tell me about your NLP project',
-  'What did you do at Digicor?',
-  'Which tools do you use for forecasting?',
-  'List your top 3 data projects',
-  'Show me your Power BI dashboard work',
+  'Which SQL queries did you use for fraud detection?',
+  'What methods did you apply for time series prediction?',
+  'Explain your image classification CNN project',
 ];
 
 export default function Chatbot() {
@@ -39,17 +39,6 @@ export default function Chatbot() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (isOpen && messages.length === 1) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: "⚡ Your AI-powered assistant — trained on Ayush’s real work to give sharp, instant insights.",
-        },
-      ]);
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     const body = document.body;
@@ -164,11 +153,19 @@ export default function Chatbot() {
         className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 hover:scale-110 transition-transform duration-300 ring-2 ring-purple-400 animate-pulse"
         onClick={() => setIsOpen(true)}
       >
-        <img
-          src="/Public/logo-db.png"
-          alt="Logo"
+        <svg
           className="w-7 h-7 rounded-full animate-spin-slow ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
-        />
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="50" cy="50" r="40" stroke="url(#grad)" strokeWidth="6" fill="none" />
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="100" y2="0">
+              <stop offset="0%" stopColor="#6366F1" />
+              <stop offset="100%" stopColor="#EC4899" />
+            </linearGradient>
+          </defs>
+        </svg>
         <span className="text-sm font-semibold flex items-center gap-1">
           Ask Bimb
           <span className="text-[10px] w-4 h-4 flex items-center justify-center bg-indigo-200 text-indigo-800 rounded font-bold">AI</span>
@@ -208,11 +205,19 @@ export default function Chatbot() {
 
               {isLoading && (
                 <div className="p-3 rounded-md bg-[#1e293b]/80 shadow text-left text-sm text-gray-300 flex items-center">
-                  <img
-                    src="/Public/logo-db.png"
-                    alt="Loading"
+                  <svg
                     className="w-5 h-5 animate-spin-slow"
-                  />
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="50" cy="50" r="40" stroke="url(#grad)" strokeWidth="6" fill="none" />
+                    <defs>
+                      <linearGradient id="grad" x1="0" y1="0" x2="100" y2="0">
+                        <stop offset="0%" stopColor="#6366F1" />
+                        <stop offset="100%" stopColor="#EC4899" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                   <span className="ml-2">Thinking...</span>
                 </div>
               )}
@@ -220,19 +225,39 @@ export default function Chatbot() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Suggested Prompts */}
-            <div className="px-4 py-2 border-t border-[#475569] bg-[#334155]">
-              <p className="text-xs text-gray-300 mb-1">Try asking:</p>
-              <div className="flex flex-wrap gap-2">
-                {suggestedPrompts.map((prompt, i) => (
-                  <button
-                    key={i}
-                    onClick={() => sendMessage(prompt)}
-                    className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition"
-                  >
-                    {prompt}
-                  </button>
-                ))}
+            {/* UI Modes/Options */}
+            <div className="px-4 py-4 border-t border-[#475569] bg-[#334155] space-y-4">
+              <div className="text-xs text-gray-300">🧠 <strong>Bimb</strong> is your AI assistant, trained on Ayush Patel’s real-world portfolio. Ask anything about:</div>
+              
+              {/* Option 1: Smart Suggestions */}
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Option 1: Smart Suggestions</p>
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={() => sendMessage('Which forecasting methods do you use?')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🔍 Forecasting methods</button>
+                  <button onClick={() => sendMessage('How did you detect fraud using SQL?')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🧾 SQL-based fraud detection</button>
+                  <button onClick={() => sendMessage('Tell me about your NLP job ad classification project.')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🧠 NLP job ad classifier</button>
+                  <button onClick={() => sendMessage('Explain your image classification CNN project.')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🖼️ CNN image classification</button>
+                </div>
+              </div>
+
+              {/* Option 2: Explore Data Stories */}
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Option 2: Explore Data Stories</p>
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={() => sendMessage('How did you forecast energy usage in R?')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">📊 R Forecasting</button>
+                  <button onClick={() => sendMessage('What SQL logic did you use to detect fraud?')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">💡 SQL Logic</button>
+                  <button onClick={() => sendMessage('Explain the business impact of your NLP project.')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">📈 NLP Impact</button>
+                </div>
+              </div>
+
+              {/* Option 3: Mini Portfolio Navigator */}
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Option 3: Mini Portfolio Navigator</p>
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={() => sendMessage('What business impact did your data projects have?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">🎯 Project impact</button>
+                  <button onClick={() => sendMessage('What tools and libraries did you use in each project?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">🧰 Tools & Libraries</button>
+                  <button onClick={() => sendMessage('Can you explain the key skills you used across projects?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">💼 Core skills</button>
+                </div>
               </div>
             </div>
 
