@@ -3,39 +3,32 @@ import { useSpring, animated } from '@react-spring/web';
 
 const projectData = [
   {
-    title: 'Stack Exchange Modeling',
+    title: 'Image Classification (CNN)',
     description:
-      'Modeled user behavior on Stack Exchange using Scikit-learn to predict activity and engagement trends.',
-    stack: ['Python', 'Scikit-learn', 'Pandas'],
-    link: 'https://github.com/ayushpatel2002/stack-exchange-modeling',
+      'Designed and trained a Convolutional Neural Network using TensorFlow and Keras to classify images from the Fashion MNIST dataset. Included visualization of feature maps and fine-tuning of hyperparameters to enhance model performance and generalization.',
+    stack: ['Python', 'TensorFlow', 'CNN', 'Fashion MNIST'],
+    link: 'https://github.com/ayushpatel2002/Image-Classification-CNN',
   },
   {
     title: 'Fraud Detection in SQL',
     description:
-      'Built rule-based and analytical queries to detect financial anomalies using SQL joins and window functions.',
-    stack: ['SQL', 'CTEs', 'Anomaly Detection'],
-    link: 'https://github.com/ayushpatel2002/fraud-detection-sql',
+      'Performed rule-based fraud detection using SQL by analyzing transactional data. Implemented logic using advanced SQL constructs like window functions, CTEs, and aggregation to identify suspicious user behavior and flag anomalies.',
+    stack: ['SQL', 'Window Functions', 'CTEs'],
+    link: 'https://github.com/ayushpatel2002/FraudDetectionWithSQL',
   },
   {
     title: 'NLP Job Ad Classifier',
     description:
-      'Developed a classification system for job ads using TF-IDF and Logistic Regression within a Flask app.',
-    stack: ['NLP', 'TF-IDF', 'Flask', 'Logistic Regression'],
-    link: 'https://github.com/ayushpatel2002/job-ad-classifier',
+      'Developed a Flask web application to classify job advertisements based on their descriptions using machine learning. Applied text preprocessing, TF-IDF vectorization, and logistic regression to enable real-time category predictions.',
+    stack: ['Flask', 'Python', 'NLP', 'TF-IDF'],
+    link: 'https://github.com/ayushpatel2002/Flask-JobSeeker-with-NLP',
   },
   {
     title: 'Energy Forecasting (R)',
     description:
-      'Used Prophet and time series models in R to forecast energy consumption patterns with lag features.',
-    stack: ['R', 'Prophet', 'Forecasting'],
-    link: 'https://github.com/ayushpatel2002/energy-use-prediction',
-  },
-  {
-    title: 'Equity Dashboard (Power BI)',
-    description:
-      'Designed interactive dashboards to visualize equity and developmental flags using DAX and slicers.',
-    stack: ['Power BI', 'DAX', 'Data Visualization'],
-    link: '',
+      'Implemented energy consumption forecasting using time series modeling in R. Compared ARIMA and Prophet models, conducted residual diagnostics, and evaluated model performance through cross-validation and error metrics.',
+    stack: ['R', 'Prophet', 'ARIMA', 'Time Series'],
+    link: 'https://github.com/ayushpatel2002/Energy-Use-Prediction-with-R',
   },
 ];
 
@@ -80,7 +73,7 @@ export const Projects = () => {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-400 hover:underline"
+              className="text-sm text-blue-400 hover:underline z-10 relative"
             >
               View on GitHub →
             </a>
