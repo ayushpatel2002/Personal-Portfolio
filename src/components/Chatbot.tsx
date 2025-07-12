@@ -150,7 +150,7 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 ring-2 ring-purple-400"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 ring-2 ring-purple-400 transition-all duration-300 ease-in-out transform hover:scale-110 hover:ring-4 hover:shadow-2xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 animate-pulse"
         onClick={() => setIsOpen(true)}
       >
         <svg
