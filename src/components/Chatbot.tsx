@@ -165,7 +165,7 @@ export default function Chatbot() {
         onClick={() => setIsOpen(true)}
       >
         <img
-          src="Public/logo-db.png"
+          src="/Public/logo-db.png"
           alt="Logo"
           className="w-7 h-7 rounded-full animate-spin-slow ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
         />
@@ -209,7 +209,7 @@ export default function Chatbot() {
               {isLoading && (
                 <div className="p-3 rounded-md bg-[#1e293b]/80 shadow text-left text-sm text-gray-300 flex items-center">
                   <img
-                    src="Public/logo-db.png"
+                    src="/Public/logo-db.png"
                     alt="Loading"
                     className="w-5 h-5 animate-spin-slow"
                   />
