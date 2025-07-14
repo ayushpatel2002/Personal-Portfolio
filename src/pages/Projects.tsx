@@ -54,7 +54,7 @@ export const Projects = () => {
       {projectData.map((project, idx) => (
         <div
           key={idx}
-          className="bg-gradient-to-br from-[#292946] to-[#1e1e2f] border border-purple-900/30 rounded-xl p-6 shadow-md hover:shadow-xl hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.02]"
+          className="cursor-pointer bg-gradient-to-br from-[#292946] to-[#1e1e2f] border border-purple-900/30 rounded-xl p-6 shadow-md hover:shadow-purple-600/50 hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.02]"
         >
           <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
           <p className="text-gray-300 text-sm mb-3">{project.description}</p>
@@ -62,7 +62,7 @@ export const Projects = () => {
             {project.stack.map((tech, i) => (
               <span
                 key={i}
-                className="text-xs bg-gradient-to-r from-purple-700 to-blue-700 text-white px-2 py-1 rounded-full font-medium shadow-sm"
+                className="text-xs bg-gradient-to-r from-purple-700 to-blue-700 text-white px-2 py-1 rounded-full font-medium shadow-sm transition-transform duration-200 group-hover:scale-110"
               >
                 {tech}
               </span>
@@ -73,7 +73,7 @@ export const Projects = () => {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-400 hover:underline z-10 relative"
+              className="text-sm text-blue-400 hover:text-pink-400 hover:underline z-10 relative transition-colors"
             >
               View on GitHub →
             </a>

@@ -150,9 +150,10 @@ export default function Chatbot() {
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-2 ring-2 ring-purple-400 transition-all duration-300 ease-in-out transform hover:scale-110 hover:ring-4 hover:shadow-2xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 animate-pulse"
+        className="fixed bottom-6 right-6 z-50 group rounded-full before:content-[''] before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-r before:from-indigo-500 before:via-purple-600 before:to-pink-500 before:blur-lg before:opacity-60 before:animate-[ping_3s_infinite]"
         onClick={() => setIsOpen(true)}
       >
+        <span className="relative flex items-center px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white rounded-full shadow-xl space-x-2 ring-2 ring-purple-400 transition-all duration-300 transform group-hover:scale-110 group-hover:ring-4 group-hover:shadow-2xl active:scale-95">
         <svg
           className="w-7 h-7 rounded-full ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
           viewBox="0 0 100 100"
@@ -169,6 +170,7 @@ export default function Chatbot() {
         <span className="text-sm font-semibold flex items-center gap-1">
           Ask Bimb
           <span className="text-[10px] w-4 h-4 flex items-center justify-center bg-indigo-200 text-indigo-800 rounded font-bold">AI</span>
+        </span>
         </span>
       </button>
 

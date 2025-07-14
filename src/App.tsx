@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Hero from './pages/Hero';
 import { About } from './pages/About';
 import { Projects } from './pages/Projects';
 import { Contact } from './pages/Contact';
@@ -46,6 +47,7 @@ export default function App() {
           </svg>
         </div>
         <div className="absolute top-[25%] left-[60%] w-96 h-96 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-3xl opacity-10 animate-pulse -z-10" />
+        <Hero />
         <About />
         <Projects />
         <Contact />

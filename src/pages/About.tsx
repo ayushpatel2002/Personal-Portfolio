@@ -47,10 +47,10 @@ export const About = () => {
         </div>
         <div className="bg-gradient-to-br from-[#292946] to-[#1e1e2f] p-6 rounded-xl shadow-md border border-purple-900/40">
           <h2 className="text-xl font-bold text-violet-300 mb-2">Latest Projects</h2>
-          <ul className="list-disc pl-5 text-zinc-700 dark:text-zinc-300 text-sm space-y-1">
-            <li>Forecasting school costs with Prophet</li>
-            <li>LLM-powered chatbot using RAG</li>
-            <li>Power BI dashboards for education equity</li>
+          <ul className="group/list list-disc pl-5 text-zinc-700 dark:text-zinc-300 text-sm space-y-1">
+            <li className="transition-transform duration-200 group-hover/list:translate-x-1 group-hover/list:text-pink-400">Forecasting school costs with Prophet</li>
+            <li className="transition-transform duration-200 group-hover/list:translate-x-1 group-hover/list:text-pink-400">LLM-powered chatbot using RAG</li>
+            <li className="transition-transform duration-200 group-hover/list:translate-x-1 group-hover/list:text-pink-400">Power BI dashboards for education equity</li>
           </ul>
         </div>
       </div>
@@ -84,7 +84,7 @@ export const About = () => {
         Tools & Skills I Use
       </h2>
       <div className="mt-6 overflow-hidden border-y border-purple-900 py-3 px-2">
-        <div className="inline-block whitespace-nowrap text-sm font-mono text-zinc-300 tracking-wide [animation:scroll_70s_linear_infinite] hover:[animation-play-state:paused]">
+        <div className="inline-block whitespace-nowrap text-sm font-mono text-zinc-300 tracking-wide [animation:scroll_70s_linear_infinite] hover:[animation-play-state:paused] transition-shadow hover:shadow-pink-500/20">
           Python • R • SQL • Power BI • Spark • LLMs • Time Series • Forecasting • Feature Engineering • NLP • CI/CD • GitHub • Communication • AWS &nbsp;&nbsp;&nbsp;&nbsp;
           Python • R • SQL • Power BI • Spark • LLMs • Time Series • Forecasting • Feature Engineering • NLP • CI/CD • GitHub • Communication • AWS
         </div>
