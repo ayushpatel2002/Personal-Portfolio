@@ -62,6 +62,7 @@ export const Hero = () => {
           </defs>
         </svg>
       </div>
+
       {particles.map((p) => (
         <div
           key={p}
@@ -69,20 +70,26 @@ export const Hero = () => {
           style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
         />
       ))}
+
       <h1 className="text-5xl sm:text-7xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s]">
         Ayush Patel
       </h1>
-      <p className="text-lg text-zinc-300 max-w-xl">Data scientist turning complex data into clear insight.</p>
+      <p className="text-lg text-zinc-300 max-w-xl">
+        Data scientist turning complex data into clear insight.
+      </p>
       <div className="mt-6 text-2xl font-mono text-blue-300 h-8">
         <animated.span style={animation}>{text}</animated.span>
       </div>
+
       <style>
         {`
         @keyframes ping-slow {
-          0% { transform: scale(1); opacity:0.7; }
-          100% { transform: scale(2); opacity:0; }
+          0% { transform: scale(1); opacity: 0.7; }
+          100% { transform: scale(2); opacity: 0; }
         }
-        .particle { animation: ping-slow 3s infinite ease-out; }
+        .particle {
+          animation: ping-slow 3s infinite ease-out;
+        }
         `}
       </style>
     </section>
