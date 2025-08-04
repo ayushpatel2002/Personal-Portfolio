@@ -31,5 +31,6 @@ async def ask(request: Request):
         print("❌ Error in /ask:", e)
         return JSONResponse(
             status_code=500,
-            content={"error": str(e)},
+            content={"answer": f"An error occurred: {str(e)}"},
+            media_type="application/json"
         )
