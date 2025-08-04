@@ -43,7 +43,10 @@ def query_index(question: str, top_k: int = 3) -> str:
     """Retrieve similar chunks and ask Mistral 7B via OpenRouter."""
     store = load_vectorstore()
     docs = store.similarity_search(question, k=top_k)
+    if not docs:
+        return "❌ No relevant context found in the portfolio for your question."
     context = "\n\n".join(d.page_content for d in docs)
+    context = context[:2000]  # prevent token overflow
 
     api_key = load_api_key()
     if not api_key:
@@ -75,7 +78,10 @@ def query_index(question: str, top_k: int = 3) -> str:
         data=json.dumps(payload),
     )
 
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        raise RuntimeError(f"❌ OpenRouter API error: {e.response.text}") from e
     return response.json()["choices"][0]["message"]["content"]
 
 

@@ -6,6 +6,13 @@ export default async function handler(request: Request): Promise<Response> {
   try {
     const body = await request.json();
 
+    if (!body.messages || !Array.isArray(body.messages)) {
+      return new Response(
+        JSON.stringify({ reply: { content: '❌ Invalid request format.' } }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     if (!process.env.OPENAI_API_KEY) {
       console.error('Missing OpenAI API key');
       return new Response(
@@ -29,10 +36,11 @@ export default async function handler(request: Request): Promise<Response> {
 
     const data = await response.json();
 
-    if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
-      console.error('OpenAI API invalid response:', data);
+    if (!data.choices?.[0]?.message) {
+      const errorMsg = data.error?.message || 'Unknown error';
+      console.error('OpenAI API error:', errorMsg, data);
       return new Response(
-        JSON.stringify({ reply: { content: '❌ Invalid response from OpenAI. Please try again.' } }),
+        JSON.stringify({ reply: { content: `❌ OpenAI error: ${errorMsg}` } }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
