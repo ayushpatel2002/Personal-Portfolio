@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/ask",
-      "destination": "http://16.176.171.21:8080/ask"
+      "destination": "http://10.0.1.30:8080/ask"
     }
   ]
 }
