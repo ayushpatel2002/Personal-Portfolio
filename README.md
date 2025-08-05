@@ -1,39 +1,32 @@
 # Personal Portfolio RAG
 
-This repository includes a lightweight retrieval-augmented generation (RAG) pipeline built with [LangChain](https://github.com/langchain-ai/langchain) and [OpenRouter](https://openrouter.ai/).
+An AI-powered assistant that answers questions about my work and background.
 
-## Setup
-1. Create and activate a virtual environment (optional):
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
-2. Install dependencies from `requirements.txt`:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Obtain an OpenRouter API key and place it in a `.env` file or export `OPENROUTER_API_KEY` in your environment:
-   ```bash
-   echo "OPENROUTER_API_KEY=sk-..." > .env
-   ```
-4. (Optional) specify the backend URL used by the React app:
-   ```bash
-   echo "VITE_BACKEND_URL=https://personal-portfolio-production-b064.up.railway.app" >> .env
-   ```
+## Overview
+This project drives the chatbot on [ayushpatelai.com](https://ayushpatelai.com). Visitors can ask about my projects or skills and receive concise, accurate summaries pulled from a curated dataset of my portfolio. It offers an easy way for recruiters and hiring managers to explore my experience without reading every page.
 
-## Ingestion
-Run the ingestion script to build the local vector store:
-```bash
-python ingest.py
-```
-This reads `backend/Data/PersonalPortfolioDataset.json`, splits it into chunks, generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`, and stores them in `backend/vectorstore/`.
+## How Retrieval-Augmented Generation Works
+- **Custom chunking** – Portfolio entries are split into code blocks and explanations so the model can reason about implementation details separately from commentary.
+- **Vector embeddings** – Each chunk is embedded with `text-embedding-3-small` and stored in a Chroma vector database.
+- **LangChain retrieval** – LangChain locates the most relevant chunks to a question.
+- **OpenRouter generation** – The retrieved context is fed to a model via OpenRouter to craft a final answer.
 
-## Querying
-After ingestion, ask questions using the CLI:
-```bash
-python query.py "What is Ayush's experience with NLP?"
-```
-If no question is supplied, example questions are printed.
+## Tech Stack
+- Python
+- FastAPI
+- LangChain
+- React
+- OpenRouter
+- Amazon ECS
+- Vercel
+- Vector embeddings: `text-embedding-3-small`
 
-The script retrieves the most relevant chunks from the vector store and sends them to OpenRouter's Mistral 7B model to generate an answer.
+## Key Features & Personal Contributions
+- Designed custom chunking logic separating code from explanation for higher retrieval accuracy.
+- Built a clean FastAPI backend exposing a single `/ask` endpoint.
+- Deployed the backend on ECS and the frontend on Vercel.
+- Connected the endpoint to my portfolio site's chatbot for live, interactive Q&A.
+
+## Why It Matters
+This project showcases my full-stack AI development skills—from data processing and model orchestration to deployment and frontend integration.
 
