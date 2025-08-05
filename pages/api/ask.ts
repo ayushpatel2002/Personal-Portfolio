@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const backendURL = 'http://10.0.1.30:8080/ask';
+  const backendURL = 'http://3.107.185.218:8080/ask';
 
   try {
     const response = await fetch(backendURL, {
