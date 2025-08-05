@@ -1,39 +1,30 @@
-# Personal Portfolio RAG
+# Ayush Patel Portfolio & AI Chatbot
 
-This repository includes a lightweight retrieval-augmented generation (RAG) pipeline built with [LangChain](https://github.com/langchain-ai/langchain) and [OpenRouter](https://openrouter.ai/).
+![Built with React](https://img.shields.io/badge/Built%20with-React%20%2B%20Express-blue?logo=react)
+![Live Demo](https://img.shields.io/badge/Demo-Live-green)
 
-## Setup
-1. Create and activate a virtual environment (optional):
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
-2. Install dependencies from `requirements.txt`:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Obtain an OpenRouter API key and place it in a `.env` file or export `OPENROUTER_API_KEY` in your environment:
-   ```bash
-   echo "OPENROUTER_API_KEY=sk-..." > .env
-   ```
-4. (Optional) specify the backend URL used by the React app:
-   ```bash
-   echo "VITE_BACKEND_URL=https://personal-portfolio-production-b064.up.railway.app" >> .env
-   ```
+## 🚀 Overview
+A sleek portfolio site featuring a conversational AI assistant. The frontend is built with **React** and **Tailwind CSS**, while the backend runs on **Node.js** and **Express**. The chatbot uses Retrieval-Augmented Generation powered by **OpenRouter** with custom embeddings.
 
-## Ingestion
-Run the ingestion script to build the local vector store:
-```bash
-python ingest.py
-```
-This reads `backend/Data/PersonalPortfolioDataset.json`, splits it into chunks, generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`, and stores them in `backend/vectorstore/`.
+## ✨ Features
+- Interactive portfolio with smooth animations
+- AI chatbot named **Bimb** that answers questions about Ayush's work
+- RAG pipeline indexing project data for accurate responses
+- Fully containerized backend served via **NGINX** on AWS ECS
+- Continuous deployment to Vercel with GitHub Actions
 
-## Querying
-After ingestion, ask questions using the CLI:
-```bash
-python query.py "What is Ayush's experience with NLP?"
-```
-If no question is supplied, example questions are printed.
+## 🛠 Tech Stack
+- React + Vite + Tailwind CSS
+- Node.js, Express, FastAPI
+- Chroma vector store & LangChain
+- OpenRouter for language models
+- Docker, AWS ECS, Vercel
 
-The script retrieves the most relevant chunks from the vector store and sends them to OpenRouter's Mistral 7B model to generate an answer.
+## 🌐 Live Site
+[https://personal-portfolio-production-b064.up.railway.app](https://personal-portfolio-production-b064.up.railway.app)
 
+## 🔮 What’s Next
+This project is evolving—expect new RAG features, model tweaks, and UI polish as the portfolio grows.
+
+---
+Built by Ayush Patel
