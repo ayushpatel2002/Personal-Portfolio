@@ -45,16 +45,23 @@ export const Projects = () => {
       ref={ref}
       style={slideIn}
       id="projects"
-      className="relative mb-16 p-8 bg-gradient-to-br from-[#1c1c2d] via-[#2c2c44] to-[#3c3c5c] text-white rounded-2xl shadow-xl border border-purple-900/30 backdrop-blur-md overflow-hidden"
+      className="relative mb-16 p-8 glass rounded-2xl soft-shadow border overflow-hidden text-white"
     >
-    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:4s]">
+    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-[#6EA8FF] to-[#6B8BFF] bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
       Featured Projects
     </h2>
     <div className="grid gap-6 md:grid-cols-2">
       {projectData.map((project, idx) => (
         <div
           key={idx}
-          className="cursor-pointer bg-gradient-to-br from-[#292946] to-[#1e1e2f] border border-purple-900/30 rounded-xl p-6 shadow-md hover:shadow-purple-600/50 hover:border-purple-500 transition duration-300 group relative overflow-hidden before:absolute before:inset-0 before:rounded-xl before:border before:border-purple-500 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-40 transform-gpu hover:-translate-y-2 hover:scale-[1.02]"
+          className="cursor-pointer glass border rounded-xl p-6 soft-shadow transition duration-300 group relative overflow-hidden \
+  before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-[2px] \
+  before:bg-gradient-to-b before:from-white/10 before:to-transparent before:rounded-t-xl \
+  before:opacity-70 before:pointer-events-none \
+  before:bg-[length:200%_100%] before:bg-[position:0_0] \
+  before:transition-[background-position,opacity] before:duration-700 before:ease-out \
+  group-hover:before:bg-[position:100%_0] group-hover:before:opacity-90 \
+  transform-gpu hover:-translate-y-1.5 hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
         >
           <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
           <p className="text-gray-300 text-sm mb-3">{project.description}</p>
@@ -62,7 +69,7 @@ export const Projects = () => {
             {project.stack.map((tech, i) => (
               <span
                 key={i}
-                className="text-xs bg-gradient-to-r from-purple-700 to-blue-700 text-white px-2 py-1 rounded-full font-medium shadow-sm transition-transform duration-200 group-hover:scale-110"
+                className="text-xs btn-chip font-medium transition-transform duration-200 group-hover:scale-110"
               >
                 {tech}
               </span>
@@ -73,15 +80,15 @@ export const Projects = () => {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-400 hover:text-pink-400 hover:underline z-10 relative transition-colors"
+              className="text-sm text-[var(--blue)] hover:underline z-10 relative transition-colors inline-flex items-center gap-1"
             >
-              View on GitHub →
+              View on GitHub ↗
             </a>
           )}
         </div>
       ))}
     </div>
-    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-purple-600 to-pink-500 opacity-20 blur-[160px] rounded-full -z-10" />
+    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-[#6EA8FF] to-[#6B8BFF] opacity-30 blur-[160px] rounded-full -z-10" />
     </animated.section>
   );
 };

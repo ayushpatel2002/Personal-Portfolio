@@ -56,8 +56,8 @@ export const Hero = () => {
           </polyline>
           <defs>
             <linearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
-              <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="100%" stopColor="#ec4899" />
+              <stop offset="0%" stopColor="#6EA8FF" />
+              <stop offset="100%" stopColor="#6B8BFF" />
             </linearGradient>
           </defs>
         </svg>
@@ -66,25 +66,25 @@ export const Hero = () => {
       {particles.map((p) => (
         <div
           key={p}
-          className="particle absolute w-1.5 h-1.5 bg-pink-400 rounded-full opacity-60"
+          className="particle absolute w-1.5 h-1.5 bg-white/70 rounded-full opacity-70"
           style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
         />
       ))}
 
-      <h1 className="text-5xl sm:text-7xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s]">
+      <h1 className="text-5xl sm:text-7xl font-extrabold mb-4 bg-gradient-to-r from-[#6EA8FF] to-[#6B8BFF] bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
         Ayush Patel
       </h1>
-      <p className="text-lg text-zinc-300 max-w-xl">
+      <p className="text-lg text-[var(--textSecondary)] max-w-xl">
         Data scientist turning complex data into clear insight.
       </p>
-      <div className="mt-6 text-2xl font-mono text-blue-300 h-8">
+      <div className="mt-6 text-2xl font-mono text-[var(--textPrimary)] h-8">
         <animated.span style={animation}>{text}</animated.span>
       </div>
 
       <style>
         {`
         @keyframes ping-slow {
-          0% { transform: scale(1); opacity: 0.7; }
+          0% { transform: scale(1); opacity: 0.5; }
           100% { transform: scale(2); opacity: 0; }
         }
         .particle {

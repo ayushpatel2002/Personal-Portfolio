@@ -146,43 +146,106 @@ export default function Chatbot() {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
           }
+
+          :root {
+            --panelBg: rgba(20, 24, 31, 0.55);
+            --panelBorder: rgba(255, 255, 255, 0.12);
+            --panelGlow: 0 8px 30px rgba(0,0,0,0.35);
+            --textPrimary: #E5E7EB;
+            --textSecondary: #CBD5E1;
+            --accentStart: #6EA8FF; /* soft iOS-like blue */
+            --accentEnd: #6B8BFF;
+            --blue: #0A84FF; /* iOS blue */
+            --bubbleBlueFrom: #1B6CFF;
+            --bubbleBlueTo: #4696FF;
+          }
+
+          .glass {
+            background: var(--panelBg);
+            backdrop-filter: blur(18px) saturate(120%);
+            -webkit-backdrop-filter: blur(18px) saturate(120%);
+            border: 1px solid var(--panelBorder);
+            box-shadow: var(--panelGlow);
+          }
+
+          .soft-shadow { box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+
+          .btn-chip {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--textPrimary);
+            border-radius: 9999px;
+            padding: 6px 10px;
+            transition: transform .15s ease, background-color .2s ease, border-color .2s ease;
+          }
+          .btn-chip:hover { transform: translateY(-1px); background: rgba(255,255,255,0.18); }
+
+          .btn-primary {
+            background: linear-gradient(180deg, var(--accentStart), var(--accentEnd));
+            color: white; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.22);
+            box-shadow: 0 6px 18px rgba(110,168,255,0.35);
+            transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+          }
+          .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(110,168,255,0.45); filter: brightness(1.04); }
+          .btn-primary:active { transform: translateY(0); }
+
+          .bubble-user {
+            background: linear-gradient(180deg, var(--bubbleBlueFrom), var(--bubbleBlueTo));
+            color: white; border-radius: 16px; box-shadow: 0 4px 14px rgba(38,132,255,0.35);
+          }
+          .bubble-assistant {
+            background: rgba(255,255,255,0.06);
+            color: var(--textSecondary);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+          }
+
+          .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--textPrimary); }
+          .markdown-body a { color: var(--blue); }
+          .markdown-body code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 6px; }
+
+          /* Slim, elegant scrollbar for the chat area */
+          .chat-scroll-area::-webkit-scrollbar { width: 10px; }
+          .chat-scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+          .chat-scroll-area::-webkit-scrollbar-track { background: transparent; }
         `}
       </style>
 
       <button
-        className="fixed bottom-6 right-6 z-50 group rounded-full before:content-[''] before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-r before:from-indigo-500 before:via-purple-600 before:to-pink-500 before:blur-lg before:opacity-60 before:animate-[ping_3s_infinite]"
+        className="fixed bottom-6 right-6 z-50 group rounded-full glass soft-shadow transition-all duration-300"
         onClick={() => setIsOpen(true)}
       >
-        <span className="relative flex items-center px-4 py-2 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white rounded-full shadow-xl space-x-2 ring-2 ring-purple-400 transition-all duration-300 transform group-hover:scale-110 group-hover:ring-4 group-hover:shadow-2xl active:scale-95">
-        <svg
-          className="w-7 h-7 rounded-full ring-2 ring-indigo-300 shadow-[inset_0_0_10px_rgba(255,255,255,0.3),0_0_12px_rgba(139,92,246,0.7)]"
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="50" cy="50" r="40" stroke="url(#grad)" strokeWidth="6" fill="none" />
-          <defs>
-            <linearGradient id="grad" x1="0" y1="0" x2="100" y2="0">
-              <stop offset="0%" stopColor="#6366F1" />
-              <stop offset="100%" stopColor="#EC4899" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <span className="text-sm font-semibold flex items-center gap-1">
-          Ask Bimb
-          <span className="text-[10px] w-4 h-4 flex items-center justify-center bg-indigo-200 text-indigo-800 rounded font-bold">AI</span>
-        </span>
+        <span className="relative flex items-center px-4 py-2 rounded-full btn-primary gap-2">
+          <svg
+            className="w-7 h-7 rounded-full"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="50" cy="50" r="40" stroke="url(#grad)" strokeWidth="6" fill="none"/>
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="100" y2="0">
+                <stop offset="0%" stopColor="#6EA8FF"/>
+                <stop offset="100%" stopColor="#6B8BFF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span className="text-sm font-semibold flex items-center gap-1">
+            Ask Bimb
+            <span className="text-[10px] w-4 h-4 flex items-center justify-center bg-white/30 text-white rounded font-bold">AI</span>
+          </span>
         </span>
       </button>
 
       <div
-        className={`fixed top-0 right-0 w-full sm:max-w-md h-screen bg-gradient-to-b from-[#141E30] to-[#243B55] border-l border-[#475569] shadow-2xl rounded-l-3xl backdrop-blur-lg overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out will-change-transform ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
+        className={`fixed top-0 right-0 w-full sm:max-w-md h-screen glass border-l border-[#475569]/0 overflow-hidden z-50 flex flex-col transform transition-transform duration-300 ease-in-out will-change-transform ${isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'}`}
       >
-            <div className="p-4 border-b border-[#475569] bg-[#1e293b]/90 flex justify-between items-center">
+            <div className="p-4 border-b border-white/10 bg-white/5 backdrop-blur-sm flex justify-between items-center">
               <div>
-                <h2 className="text-lg font-semibold text-indigo-300 flex items-center gap-2">
+                <h2 className="text-lg font-semibold text-[var(--textPrimary)] flex items-center gap-2">
                   👋 I’m Bimb
                 </h2>
-                <p className="text-xs text-gray-300">🤖 Ask me anything about Ayush’s projects, skills, or experience — Powered by AI, trained on his real portfolio.</p>
+                <p className="text-xs text-[var(--textSecondary)]">🤖 Ask me anything about Ayush’s projects, skills, or experience — Powered by AI, trained on his real portfolio.</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -205,8 +268,8 @@ export default function Chatbot() {
               {messages.slice(1).map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded-md shadow text-sm whitespace-pre-wrap ${
-                    msg.role === 'user' ? 'bg-blue-600/80 text-right text-white' : 'bg-[#1e293b]/80 text-left text-gray-300'
+                  className={`p-3 text-sm whitespace-pre-wrap markdown-body ${
+                    msg.role === 'user' ? 'bubble-user text-right' : 'bubble-assistant text-left'
                   }`}
                 >
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -214,7 +277,7 @@ export default function Chatbot() {
               ))}
 
               {isLoading && (
-                <div className="p-3 rounded-md bg-[#1e293b]/80 shadow text-left text-sm text-gray-300 flex items-center">
+                <div className="p-3 bubble-assistant text-left text-sm flex items-center gap-2">
                   <svg
                     className="w-5 h-5 animate-spin-slow"
                     viewBox="0 0 100 100"
@@ -236,17 +299,17 @@ export default function Chatbot() {
             </div>
 
             {/* UI Modes/Options */}
-            <div className="px-4 py-4 border-t border-[#475569] bg-[#334155] space-y-4">
+            <div className="px-4 py-4 border-t border-white/10 bg-white/5 backdrop-blur-sm space-y-4">
               <div className="text-xs text-gray-300">🧠 <strong>Bimb</strong> is your AI assistant, trained on Ayush Patel’s real-world portfolio. Ask anything about:</div>
               
               {/* Option 1: Smart Suggestions */}
               <div>
                 <p className="text-xs text-gray-400 mb-1">Option 1: Smart Suggestions</p>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => sendMessage('Which forecasting methods do you use?')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🔍 Forecasting methods</button>
-                  <button onClick={() => sendMessage('How did you detect fraud using SQL?')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🧾 SQL-based fraud detection</button>
-                  <button onClick={() => sendMessage('Tell me about your NLP job ad classification project.')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🧠 NLP job ad classifier</button>
-                  <button onClick={() => sendMessage('Explain your image classification CNN project.')} className="text-xs bg-indigo-300 text-indigo-900 px-3 py-1 rounded-full hover:bg-indigo-400 transition">🖼️ CNN image classification</button>
+                  <button onClick={() => sendMessage('Which forecasting methods do you use?')} className="text-xs btn-chip">🔍 Forecasting methods</button>
+                  <button onClick={() => sendMessage('How did you detect fraud using SQL?')} className="text-xs btn-chip">🧾 SQL-based fraud detection</button>
+                  <button onClick={() => sendMessage('Tell me about your NLP job ad classification project.')} className="text-xs btn-chip">🧠 NLP job ad classifier</button>
+                  <button onClick={() => sendMessage('Explain your image classification CNN project.')} className="text-xs btn-chip">🖼️ CNN image classification</button>
                 </div>
               </div>
 
@@ -254,9 +317,9 @@ export default function Chatbot() {
               <div>
                 <p className="text-xs text-gray-400 mb-1">Option 2: Explore Data Stories</p>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => sendMessage('How did you forecast energy usage in R?')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">📊 R Forecasting</button>
-                  <button onClick={() => sendMessage('What SQL logic did you use to detect fraud?')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">💡 SQL Logic</button>
-                  <button onClick={() => sendMessage('Explain the business impact of your NLP project.')} className="text-xs bg-purple-300 text-purple-900 px-3 py-1 rounded-full hover:bg-purple-400 transition">📈 NLP Impact</button>
+                  <button onClick={() => sendMessage('How did you forecast energy usage in R?')} className="text-xs btn-chip">📊 R Forecasting</button>
+                  <button onClick={() => sendMessage('What SQL logic did you use to detect fraud?')} className="text-xs btn-chip">💡 SQL Logic</button>
+                  <button onClick={() => sendMessage('Explain the business impact of your NLP project.')} className="text-xs btn-chip">📈 NLP Impact</button>
                 </div>
               </div>
 
@@ -264,28 +327,28 @@ export default function Chatbot() {
               <div>
                 <p className="text-xs text-gray-400 mb-1">Option 3: Mini Portfolio Navigator</p>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => sendMessage('What business impact did your data projects have?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">🎯 Project impact</button>
-                  <button onClick={() => sendMessage('What tools and libraries did you use in each project?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">🧰 Tools & Libraries</button>
-                  <button onClick={() => sendMessage('Can you explain the key skills you used across projects?')} className="text-xs bg-pink-300 text-pink-900 px-3 py-1 rounded-full hover:bg-pink-400 transition">💼 Core skills</button>
+                  <button onClick={() => sendMessage('What business impact did your data projects have?')} className="text-xs btn-chip">🎯 Project impact</button>
+                  <button onClick={() => sendMessage('What tools and libraries did you use in each project?')} className="text-xs btn-chip">🧰 Tools & Libraries</button>
+                  <button onClick={() => sendMessage('Can you explain the key skills you used across projects?')} className="text-xs btn-chip">💼 Core skills</button>
                 </div>
               </div>
             </div>
 
             {/* Input */}
-            <div className="sticky bottom-0 p-4 border-t border-[#475569] bg-[#0f172a]/80 backdrop-blur flex gap-2">
+            <div className="sticky bottom-0 p-4 border-t border-white/10 bg-black/30 backdrop-blur flex gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Ask a question..."
-                className="flex-1 border border-gray-600 bg-gray-800 text-gray-200 px-3 py-2 rounded text-sm"
+                className="flex-1 glass text-[var(--textPrimary)] px-3 py-2 rounded-full text-sm border-0"
                 disabled={isLoading}
               />
               <button
                 onClick={() => sendMessage()}
                 disabled={isLoading || !input.trim()}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50 text-sm"
+                className="px-4 py-2 btn-primary disabled:opacity-50 text-sm"
               >
                 {isLoading ? '...' : 'Send'}
               </button>
