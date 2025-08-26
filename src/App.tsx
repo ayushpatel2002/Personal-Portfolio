@@ -4,6 +4,7 @@ import { About } from './pages/About';
 import { Projects } from './pages/Projects';
 import { Contact } from './pages/Contact';
 import Chatbot from './components/Chatbot';
+import NavBar from './components/NavBar';
 
 interface AnimatedCounterProps {
   to: number;
@@ -57,6 +58,7 @@ export default function App() {
   }, []);
   return (
     <div className="font-sans text-white min-h-screen bg-[radial-gradient(1200px_600px_at_70%_0%,rgba(110,168,255,0.10),transparent_60%),linear-gradient(to_bottom,#0a0f1c,#1a2238)]">
+      <NavBar />
       <main className="relative max-w-6xl mx-auto px-6 py-6 space-y-16 glass rounded-3xl soft-shadow border overflow-hidden transition-shadow hover:shadow-[0_0_30px_rgba(110,168,255,0.25)]">
         <div className="absolute inset-0 -z-10 opacity-5 pointer-events-none">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
