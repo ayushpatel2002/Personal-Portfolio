@@ -1,5 +1,5 @@
+import { animated, useSpring, useTrail } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from '@react-spring/web';
 
 const projectData = [
   {
@@ -34,61 +34,69 @@ const projectData = [
 
 export const Projects = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-  const slideIn = useSpring({
+
+  const headingSpring = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0px)' : 'translateY(60px)',
-    config: { mass: 1.2, tension: 120, friction: 20 },
+    y: inView ? 0 : 20,
+  });
+
+  const cardTrail = useTrail(projectData.length, {
+    opacity: inView ? 1 : 0,
+    y: inView ? 0 : 40,
+    config: { tension: 180, friction: 22 },
   });
 
   return (
-    <animated.section
-      ref={ref}
-      style={slideIn}
-      id="projects"
-      className="relative mb-16 p-8 glass rounded-2xl soft-shadow border overflow-hidden text-white"
-    >
-    <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-[#6EA8FF] to-[#6B8BFF] bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
-      Featured Projects
-    </h2>
-    <div className="grid gap-6 md:grid-cols-2">
-      {projectData.map((project, idx) => (
-        <div
-          key={idx}
-          className="cursor-pointer glass border rounded-xl p-6 soft-shadow transition duration-300 group relative overflow-hidden \
-  before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-[2px] \
-  before:bg-gradient-to-b before:from-white/10 before:to-transparent before:rounded-t-xl \
-  before:opacity-70 before:pointer-events-none \
-  before:bg-[length:200%_100%] before:bg-[position:0_0] \
-  before:transition-[background-position,opacity] before:duration-700 before:ease-out \
-  group-hover:before:bg-[position:100%_0] group-hover:before:opacity-90 \
-  transform-gpu hover:-translate-y-1.5 hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-        >
-          <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-          <p className="text-gray-300 text-sm mb-3">{project.description}</p>
-          <div className="flex flex-wrap gap-2 mb-3">
-            {project.stack.map((tech, i) => (
-              <span
-                key={i}
-                className="text-xs btn-chip font-medium transition-transform duration-200 group-hover:scale-110"
+    <section id="projects" ref={ref} className="py-24 px-6 relative">
+      <div className="max-w-6xl mx-auto">
+        <animated.div style={headingSpring} className="mb-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            Featured Projects
+          </h2>
+          <p className="text-slate-400 max-w-2xl mx-auto">
+            A selection of my recent work in data analysis and web development.
+          </p>
+        </animated.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {cardTrail.map((style, index) => {
+            const project = projectData[index];
+            return (
+              <animated.article
+                key={project.title}
+                style={style}
+                className="group relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-colors hover:-translate-y-2"
               >
-                {tech}
-              </span>
-            ))}
-          </div>
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[var(--blue)] hover:underline z-10 relative transition-colors inline-flex items-center gap-1"
-            >
-              View on GitHub ↗
-            </a>
-          )}
+                <div className="h-48 bg-gradient-to-br from-slate-800 to-slate-900 transition-transform duration-500 group-hover:scale-105" />
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-100 mb-2 group-hover:text-blue-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-4">{project.description}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.stack.map((tag) => (
+                      <span key={tag} className="text-xs px-2 py-1 bg-slate-700/50 text-blue-300 rounded-md">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+                  >
+                    ↗ View on GitHub
+                  </a>
+                </div>
+              </animated.article>
+            );
+          })}
         </div>
-      ))}
-    </div>
-    <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-[#6EA8FF] to-[#6B8BFF] opacity-30 blur-[160px] rounded-full -z-10" />
-    </animated.section>
+      </div>
+    </section>
   );
 };

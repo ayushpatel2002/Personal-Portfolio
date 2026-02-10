@@ -1,97 +1,79 @@
 import { useEffect, useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { animated, useSpring, useTrail } from '@react-spring/web';
 
-const skills = [
-  'R',
-  'Python',
-  'SQL',
-  'Power BI',
-  'Forecasting',
-  'NLP',
-  'CI/CD',
-  'AWS',
-  'Storytelling',
+const skills = ['R', 'Python', 'SQL', 'Power BI', 'Forecasting', 'NLP', 'Data Visualization'];
+const heroLines = [
+  'I transform data into insights.',
+  'I build predictive models.',
+  'I craft data visualizations.',
 ];
 
-export const Hero = () => {
-  const [index, setIndex] = useState(0);
-  const [text, setText] = useState('');
-
-  const animation = useSpring({
-    key: index,
-    from: { opacity: 0, transform: 'translateY(12px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-    config: { mass: 1, tension: 170, friction: 26 },
-  });
+const Hero = () => {
+  const [lineIndex, setLineIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
 
   useEffect(() => {
-    const word = skills[index];
+    const line = heroLines[lineIndex];
     let char = 0;
-    setText('');
-    const type = setInterval(() => {
-      char += 1;
-      setText(word.slice(0, char));
-      if (char === word.length) {
-        clearInterval(type);
-        setTimeout(() => setIndex((i) => (i + 1) % skills.length), 1600);
-      }
-    }, 120);
-    return () => clearInterval(type);
-  }, [index]);
+    setDisplayText('');
 
-  const particles = Array.from({ length: 12 }, (_, i) => i);
+    const typeId = setInterval(() => {
+      char += 1;
+      setDisplayText(line.slice(0, char));
+      if (char >= line.length) {
+        clearInterval(typeId);
+        setTimeout(() => setLineIndex((idx) => (idx + 1) % heroLines.length), 1300);
+      }
+    }, 45);
+
+    return () => clearInterval(typeId);
+  }, [lineIndex]);
+
+  const introSpring = useSpring({
+    from: { opacity: 0, y: 24 },
+    to: { opacity: 1, y: 0 },
+    config: { tension: 140, friction: 20 },
+  });
+
+  const skillTrail = useTrail(skills.length, {
+    from: { opacity: 0, scale: 0.9 },
+    to: { opacity: 1, scale: 1 },
+    delay: 500,
+  });
 
   return (
-    <section className="relative flex flex-col items-center justify-center text-center py-32 sm:py-40">
-      <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
-        <svg viewBox="0 0 500 100" className="w-full h-full" preserveAspectRatio="none">
-          <polyline
-            points="0,80 50,60 100,65 150,40 200,50 250,30 300,40 350,20 400,30 450,10 500,20"
-            fill="none"
-            stroke="url(#grad)"
-            strokeWidth="3"
-            strokeDasharray="6"
-          >
-            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="4s" repeatCount="indefinite" />
-          </polyline>
-          <defs>
-            <linearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
-              <stop offset="0%" stopColor="#6EA8FF" />
-              <stop offset="100%" stopColor="#6B8BFF" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 pt-28 overflow-hidden">
+      <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
+      <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob [animation-delay:2s]" />
+      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob [animation-delay:4s]" />
 
-      {particles.map((p) => (
-        <div
-          key={p}
-          className="particle absolute w-1.5 h-1.5 bg-white/70 rounded-full opacity-70"
-          style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
-        />
-      ))}
+      <animated.div style={introSpring} className="relative z-10 text-center max-w-3xl">
+        <h2 className="text-sm md:text-base font-medium tracking-wider text-blue-400 mb-4 uppercase">Data Analyst & Developer</h2>
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight">
+          Hi, I&apos;m{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+            Ayush Patel
+          </span>
+        </h1>
 
-      <h1 className="text-5xl sm:text-7xl font-extrabold mb-4 bg-gradient-to-r from-[#6EA8FF] to-[#6B8BFF] bg-clip-text text-transparent animate-gradient-x [background-size:200%_200%] [animation-duration:6s] [animation-timing-function:ease-in-out] [animation-iteration-count:infinite]">
-        Ayush Patel
-      </h1>
-      <p className="text-lg text-[var(--textSecondary)] max-w-xl">
-        Data scientist turning complex data into clear insight.
-      </p>
-      <div className="mt-6 text-2xl font-mono text-[var(--textPrimary)] h-8">
-        <animated.span style={animation}>{text}</animated.span>
-      </div>
+        <div className="text-xl md:text-2xl text-slate-400 mb-8 h-12">{displayText}</div>
 
-      <style>
-        {`
-        @keyframes ping-slow {
-          0% { transform: scale(1); opacity: 0.5; }
-          100% { transform: scale(2); opacity: 0; }
-        }
-        .particle {
-          animation: ping-slow 3s infinite ease-out;
-        }
-        `}
-      </style>
+        <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          Passionate about uncovering trends and solving complex problems through data-driven strategies.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          {skillTrail.map((style, idx) => (
+            <animated.span
+              key={skills[idx]}
+              style={style}
+              className="px-4 py-2 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-full text-slate-300 text-sm hover:border-blue-500/50 hover:text-blue-400 transition-colors cursor-default"
+            >
+              {skills[idx]}
+            </animated.span>
+          ))}
+        </div>
+      </animated.div>
     </section>
   );
 };
